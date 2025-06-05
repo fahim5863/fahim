@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>Login Page</title>
+    <script>
+      function validateLogin() {
+        // Hardcoded username and password
+        var correctUsername = "fahim";
+        var correctPassword = "1234";
+
+        // Get user input
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        // Check if input matches
+        if (username === correctUsername && password === correctPassword) {
+          alert("Login successful!");
+          window.location.href = "page1.html"; // redirect to next page
+        } else {
+          alert("Invalid username or password. Try again.");
+        }
+
+        return false; // Prevent actual form submission
+      }
+    </script>
+  </head>
+  <body>
+    <center>
+      <h3>Try to make a Login page</h3>
+      <form onsubmit="return validateLogin();">
+        <table>
+          <tr>
+            <td>What is your username</td>
+            <td><input type="text" id="username" name="user" required></td>
+          </tr>
+          <tr>
+            <td>What is your password</td>
+            <td><input type="password" id="password" name="user_pass" required></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <input type="submit" value="Next">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </center>
+  </body>
+</html>
