@@ -14,7 +14,7 @@
         // Check if input matches
         if (username === correctUsername && password === correctPassword) {
           alert("Login successful!");
-          window.location.href = "page1.html"; // redirect to next page
+          window.location.href = "pvtinfoadmin.html"; // redirect to next page
         } else {
           alert("Invalid username or password. Try again.");
         }
@@ -25,20 +25,20 @@
   </head>
   <body>
     <center>
-      <h3>Try to make a Login page</h3>
+      <h3>ADMIN LOGIN</h3>
       <form onsubmit="return validateLogin();">
         <table>
           <tr>
-            <td>What is your username</td>
+            <td>USERNAME</td>
             <td><input type="text" id="username" name="user" required></td>
           </tr>
           <tr>
-            <td>What is your password</td>
+            <td>PASSWORD</td>
             <td><input type="password" id="password" name="user_pass" required></td>
           </tr>
           <tr>
             <td colspan="2" align="center">
-              <input type="submit" value="Next">
+              <input type="submit" value="Next"style="width:150px; height:50px; font-size:18px;">>
             </td>
           </tr>
         </table>
