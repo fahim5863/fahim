@@ -1,3 +1,40 @@
+<html>
+<head>
+  <style>
+    .scrolling-text {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      background-color: red; /* Red background */
+      color: white; /* Optional: white text for contrast */
+      padding: 10px; /* Optional: some padding */
+    }
+
+    .scrolling-text span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 10s linear infinite;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scrolling-text">
+  <span>একটি ওয়েবসাইটটি ক্ষণাবেক্ষণের কার্যক্রম চলমান, যদি কোন সমস্যার সম্মুখীন হন তাহলে কর্তৃপক্ষকে অবগত করুন ধন্যবাদ। </span>
+</div>
+
+</body>
+</html>
 <hr>
 <html>
   <body>
