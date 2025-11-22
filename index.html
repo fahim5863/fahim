@@ -1,136 +1,113 @@
-<html>
+<html lang="bn">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fahim — Personal</title>
   <style>
-    .scrolling-text {
-      width: 100%;
-      overflow: hidden;
-      white-space: nowrap;
-      box-sizing: border-box;
-      background-color: red; /* Red background */
-      color: white; /* Optional: white text for contrast */
-      padding: 10px; /* Optional: some padding */
+    :root{
+      --bg1: #0f172a;
+      --bg2: #0b1220;
+      --text: #e6eef8;
+      --muted: rgba(230,238,248,0.65);
+      --accent: linear-gradient(135deg,#7c3aed,#06b6d4);
     }
 
-    .scrolling-text span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll-left 9s linear infinite;
+    body{
+      margin:0;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      padding:32px;
+      padding-top:90px;
     }
 
-    @keyframes scroll-left {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
+    /* ---- TOP NAV ---- */
+    .topnav{
+      position:fixed;
+      top:0; left:0;
+      width:100%;
+      height:60px;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      padding:0 20px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      z-index:1000;
+    }
+
+    .login-btn{
+      display:inline-block;
+      padding:8px 16px;
+      border-radius:10px;
+      font-weight:600;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,0.1);
+      color:var(--text);
+      background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      transition:0.2s;
+    }
+    .login-btn:hover{
+      transform:translateY(-1px);
+    }
+
+    /* ---- CARD ---- */
+    .card{
+      max-width:920px;
+      margin:auto;
+      background: rgba(255,255,255,0.03);
+      padding:28px;
+      border-radius:18px;
+      display:flex;
+      gap:28px;
+      align-items:center;
+      border:1px solid rgba(255,255,255,0.04);
+      backdrop-filter:blur(6px);
+    }
+
+    /* photo */
+    .avatar{
+      width:200px;
+      height:200px;
+      border-radius:50%;
+      overflow:hidden;
+      background: rgba(255,255,255,0.03);
+      border:6px solid transparent;
+    }
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    /* responsive */
+    @media(max-width:720px){
+      .card{flex-direction:column;}
+      .avatar{width:150px;height:150px;}
     }
   </style>
 </head>
 <body>
 
-<div class="scrolling-text">
-  <span>এই ওয়েবসাইটটি ক্ষণাবেক্ষণের কার্যক্রম চলমান, যদি কোন সমস্যার সম্মুখীন হন তাহলে কর্তৃপক্ষকে অবগত করুন ধন্যবাদ। </span>
-</div>
+  <!-- Top Right Login Button with Hyperlink -->
+  <div class="topnav">
+    <a href="login.html" class="login-btn">Login</a>
+  </div>
+
+  <main class="card">
+    <div class="avatar">
+      <img src="your-photo.jpg" alt="Fahim">
+    </div>
+
+    <div>
+      <h1>Fahim Hossain</h1>
+      <p style="color:var(--muted);">Student · English Learner · From Dhaka</p>
+      <p style="color:var(--muted); line-height:1.6;">
+        Assalamu alaikum — ami Fahim. Ei website amar personal profile page.
+      </p>
+    </div>
+  </main>
 
 </body>
-</html>
-<hr>
-<html>
-  <body>
-    <table style="background-color:powderblue; width:100%" >
-      <tr>
-      <td style="text-align: right; vertical-align: middle;"><a href="admin login.html">
-          <input type="submit" value="Login" style="width: 150px; height: 50px; font-size:20px;">
-      </a></td>
-      </tr>
-    </table>
-  </body>
-</html>
-<hr>
-<html>
-  <head>
-    <title>All Information About Our Coaching</title>
-  </head>
-  <body>
-    <center><p><font size="12"<h1>All Information About Coaching</font></h1></p></center>
-    <br>
-    <p><center><font size="3">I Will Try To Make A Website Plz Support Me Thank You</font></center></p><br>
-    <center><p><font size="3">ATTENDANCE OF YEAR FINAL EXAM</font>
-      <br><br>
-      <table>
-        <tr>
-          <td>
-            <ul type="disc">
-           <li><font size="7"><a href="march.html" style="text-decoration:none;">1 This Is Our March Attendance </font></a></li>
-         </ul>
-         </td>
-        </tr>
-      </table>
-    <br>
-    <table>
-        <tr>
-          <td >
-            <ul type="disc">
-              <li><font size="7"><a href="april.html" style="text-decoration:none;">2 This Is Our April Attendance</font> </a></li>
-            </ul>
-          </td>
-        </tr>
-      </table>
-    <br>
-    <table>
-        <tr>
-          <td>
-            <ul type="disc">
-              <li><font size="7"><a href="may.html" style="text-decoration:none;">3 This Is Our May Attendance</font> </a> </li>
-            </ul> 
-          </td>
-        </tr>
-      </table>
-    
-  </p>
-  </center>
-  </body>
-</html>
-<br>
-<hr>
-<h6>DIRECTOR INFO:</h6>
-<hr>
-<html>
-  <body>
-    <center>
-     <a href="director info.html"> <img src="Director info.jpg"></a>
-    </center>
-    <center>
-     <a href="director info.html" style="text-decoration:none;"><h1><font color="black">JIHAN SARKER MASUM</font></h1></a>
-    <p> <font size="2"><b> BBA, MBA (Accounting)<br> National University<br>
-Director: National College of Education<br>
-Mobile: 01915-475678
-    </b></font></p>
-    </center>
-  </body>
-</html>
-<hr>
-<h6>PROGRAMMER INFO:</h6>
-<hr>
-<html>
-  <body>
-    <center>
-      <img src="Picsart_24-10-29_01-18-51-622.jpg" width="565px" height="640px">
-      <h1>FAHIM HOSSAIN</h1>
-      <p>Contact</p>
-    </center>
-  </body>
-</html>
-<html>
-  <body>
-    <center>
-      <h5>
-      <a href="mailto:mdfahim35863@gmail.com?subject=Contect With developer&body=I am a user your your website." style="text-decoration:none;"> <img src="mail logo.png"width="40px"height="40px">
-        EMAIL</a><br>
-      <a href="https://www.facebook.com/share/19gNtJUpva/"style="text-decoration:none;"><img src="facbook logo.png"widht="50px"height="50px">FACEBOOK</a><br>
-      <a href="https://www.instagram.com/fahim.41?igsh=MjZubXh2YmZuZ3Ro"style=text-decoration:none;"><img src="Instagram logo.png" widht="40px" height="40px">INSTAGRAM</a>
-      </h5>
-    </center>
-   </body>
 </html>
