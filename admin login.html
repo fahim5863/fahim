@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Login Page</title>
-
   <style>
-    body{
+    body {
       margin:0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg,#0a0f25,#12192f);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #0a0f25, #12192f);
       display:flex;
       justify-content:center;
       align-items:center;
@@ -16,93 +15,106 @@
       color:white;
     }
 
-    .login-card{
+    .login-card {
       background: rgba(255,255,255,0.05);
-      width:350px;
-      padding:35px;
-      border-radius:20px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width:360px;
+      padding:40px;
+      border-radius:22px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
       text-align:center;
-      border:1px solid rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.12);
+      transition: transform 0.3s;
+    }
+    .login-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.8);
     }
 
-    h3{
-      font-size:28px;
+    h3 {
+      font-size:30px;
       color:#7c3aed;
-      margin-bottom:25px;
-      text-shadow:0 2px 5px rgba(0,0,0,0.5);
+      margin-bottom:30px;
+      text-shadow:0 2px 6px rgba(0,0,0,0.5);
     }
 
-    table{
+    table {
       width:100%;
       font-size:16px;
       color:white;
     }
 
-    input[type="text"], input[type="password"]{
+    input[type="text"], input[type="password"] {
       width:100%;
-      padding:12px;
-      border-radius:10px;
+      padding:14px;
+      border-radius:12px;
       border:1px solid rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.06);
       color:white;
       font-size:16px;
-      margin-top:5px;
+      margin-top:8px;
+      transition: background 0.3s, border 0.3s;
     }
-
-    input[type="text"]::placeholder,
-    input[type="password"]::placeholder{
+    input[type="text"]:focus, input[type="password"]:focus {
+      outline:none;
+      border:1px solid #7c3aed;
+      background: rgba(124,58,237,0.1);
+    }
+    input::placeholder {
       color: rgba(255,255,255,0.6);
     }
 
-    input[type="submit"]{
+    input[type="submit"] {
       width:100%;
-      padding:14px;
-      margin-top:20px;
+      padding:16px;
+      margin-top:22px;
       background: linear-gradient(135deg,#7c3aed,#06b6d4);
       color:white;
       font-size:18px;
       border:none;
-      border-radius:12px;
+      border-radius:14px;
       cursor:pointer;
       font-weight:bold;
-      box-shadow:0 5px 20px rgba(0,0,0,0.5);
-      transition:0.3s;
+      box-shadow:0 6px 25px rgba(0,0,0,0.5);
+      transition: 0.3s;
+    }
+    input[type="submit"]:hover {
+      box-shadow:0 8px 35px rgba(0,0,0,0.7);
+      transform: translateY(-3px);
     }
 
-    input[type="submit"]:hover{
-      box-shadow:0 8px 25px rgba(0,0,0,0.7);
-      transform: translateY(-2px);
-    }
-
-    .footer-text{
-      margin-top:15px;
+    .footer-text {
+      margin-top:18px;
       font-size:13px;
       color:rgba(255,255,255,0.6);
+    }
+
+    @media(max-width:400px){
+      .login-card { width:90%; padding:25px; }
+      h3 { font-size:26px; }
     }
 
   </style>
 
   <script>
-      function validateLogin() {
-        var correctUsername = "fahim";
-        var correctPassword = "2007";
+    function validateLogin() {
+      var correctUsername = "fahim";
+      var correctPassword = "2007";
 
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
 
-        if (username === correctUsername && password === correctPassword) {
-          alert("Login successful!");
-          window.location.href = "sitemine.html";
-        } else {
-          alert("Invalid username or password. Please contact the programmer if you don't have an ID.");
-          window.location.href = "https://fahim5863.github.io/fahim/";
-        }
-        return false;
+      if (username === correctUsername && password === correctPassword) {
+        // Direct redirect on correct credentials
+        window.location.href = "sitemine.html";
+      } else {
+        alert("Invalid username or password. Contact programmer if you don't have an ID.");
+        window.location.href = "https://fahim5863.github.io/fahim/";
       }
-  </script>
 
+      return false; // Prevent default form submission
+    }
+  </script>
 </head>
 
 <body>
