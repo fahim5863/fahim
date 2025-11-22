@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Coaching Information</title>
-
 <style>
-
     body{
         margin:0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(to bottom right, #DCE6F9, #AEC9FF);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(135deg,#0a0f25,#12192f);
+        color:white;
     }
 
     /* 🔴 Scrolling Notice */
@@ -19,15 +18,15 @@
       white-space: nowrap;
       background-color: #D50000;
       color: white;
-      padding: 10px;
+      padding: 12px;
       font-size:16px;
       font-weight:600;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.35);
     }
     .scrolling-text span {
       display: inline-block;
       padding-left: 100%;
-      animation: scroll-left 9s linear infinite;
+      animation: scroll-left 10s linear infinite;
     }
     @keyframes scroll-left {
       0% { transform: translateX(0); }
@@ -37,30 +36,32 @@
     /* 🔵 Top Bar */
     .topbar{
         width:100%;
-        background: rgba(255,255,255,0.45);
+        background: rgba(255,255,255,0.08);
         padding:14px 22px;
         display:flex;
         justify-content:flex-end;
-        backdrop-filter: blur(7px);
-        box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 2px 15px rgba(0,0,0,0.25);
         position:sticky;
         top:0;
         z-index:999;
-        border-bottom:1px solid rgba(255,255,255,0.6);
+        border-bottom:1px solid rgba(255,255,255,0.15);
     }
     .login-btn{
         padding:10px 20px;
         font-size:18px;
-        background:#3B82F6;
+        background: linear-gradient(135deg,#7c3aed,#06b6d4);
         color:white;
         border-radius:10px;
         cursor:pointer;
         text-decoration:none;
         font-weight:bold;
-        box-shadow:0 4px 10px rgba(0,0,0,0.2);
+        box-shadow:0 4px 12px rgba(0,0,0,0.35);
+        transition:0.3s;
     }
     .login-btn:hover{
-        background:#2563EB;
+        transform: translateY(-2px);
+        box-shadow:0 6px 20px rgba(0,0,0,0.5);
     }
 
     h1, h6{
@@ -70,71 +71,92 @@
     .main-title{
         font-size:42px;
         margin-top:25px;
-        color:#0F1D45;
-        text-shadow:1px 2px 3px rgba(0,0,0,0.1);
+        color:#7c3aed;
+        text-shadow:1px 2px 4px rgba(0,0,0,0.6);
     }
 
     .sub-text{
         text-align:center;
         font-size:19px;
         font-weight:600;
-        color:#2B3A55;
+        color: rgba(255,255,255,0.8);
         margin-bottom:20px;
     }
 
     /* 📌 Attendance Box */
     .box{
-        background: rgba(255,255,255,0.6);
+        background: rgba(255,255,255,0.05);
         width:90%;
         margin:15px auto;
         padding:20px;
         border-radius:15px;
         backdrop-filter: blur(10px);
-        box-shadow:0 6px 20px rgba(0,0,0,0.15);
+        box-shadow:0 6px 25px rgba(0,0,0,0.35);
         text-align:center;
-        border:1px solid rgba(255,255,255,0.7);
+        border:1px solid rgba(255,255,255,0.1);
+        transition:0.3s;
     }
     .box a{
         text-decoration:none;
-        font-size:30px;
+        font-size:28px;
         font-weight:bold;
-        color:#0B48C2;
+        color:#06b6d4;
+    }
+    .box:hover{
+        transform: translateY(-3px);
+        box-shadow:0 10px 35px rgba(0,0,0,0.5);
     }
     .box a:hover{
-        color:#092F8A;
+        color:#7c3aed;
     }
 
     /* 👤 Profile Cards */
     .profile{
-        background: rgba(255,255,255,0.6);
+        background: rgba(255,255,255,0.05);
         width:90%;
         margin:20px auto;
-        padding:20px;
+        padding:25px;
         border-radius:15px;
-        backdrop-filter: blur(10px);
-        box-shadow:0 6px 20px rgba(0,0,0,0.2);
+        backdrop-filter: blur(12px);
+        box-shadow:0 6px 25px rgba(0,0,0,0.45);
         text-align:center;
-        border:1px solid rgba(255,255,255,0.7);
+        border:1px solid rgba(255,255,255,0.1);
+        transition:0.3s;
     }
     .profile img{
         border-radius:15px;
         width:320px;
-        box-shadow:0 5px 20px rgba(0,0,0,0.25);
+        max-width:90%;
+        box-shadow:0 5px 25px rgba(0,0,0,0.35);
+        transition:0.3s;
     }
+    .profile:hover img{
+        transform: scale(1.05);
+    }
+    .profile h1{
+        margin-top:15px;
+        font-size:28px;
+        color:#7c3aed;
+    }
+    .profile p{
+        font-size:16px;
+        color: rgba(255,255,255,0.8);
+    }
+
     .contact-icons img{
         width:45px;
         margin:10px;
         transition:0.2s;
     }
     .contact-icons img:hover{
-        transform:scale(1.15);
+        transform:scale(1.2);
     }
 
     h6{
         font-size:20px;
-        color:#0F1D45;
+        color:#7c3aed;
         margin-top:25px;
-        text-shadow:1px 1px 2px rgba(0,0,0,0.15);
+        text-shadow:1px 1px 2px rgba(0,0,0,0.3);
     }
 
 </style>
@@ -156,53 +178,48 @@
 <h1 class="main-title">All Information About Coaching</h1>
 <p class="sub-text">I Will Try To Make A Beautiful Website — Please Support Me — Thank You</p>
 
-
 <!-- 📘 Attendance Links -->
 <div class="box">
     <a href="march.html">1 — This Is Our March Attendance</a>
 </div>
-
 <div class="box">
     <a href="april.html">2 — This Is Our April Attendance</a>
 </div>
-
 <div class="box">
     <a href="may.html">3 — This Is Our May Attendance</a>
 </div>
-
 
 <!-- 👨‍🏫 Director Info -->
 <h6>DIRECTOR INFO:</h6>
 <div class="profile">
     <a href="director info.html">
-        <img src="Director info.jpg">
+        <img src="Director info.jpg" alt="Director Photo">
     </a>
-    <h1><a href="director info.html" style="text-decoration:none; color:#000;">JIHAN SARKER MASUM</a></h1>
+    <h1><a href="director info.html" style="text-decoration:none; color:#7c3aed;">JIHAN SARKER MASUM</a></h1>
     <p><b>BBA, MBA (Accounting)<br>
 National University<br>
 Director: National College of Education<br>
 Mobile: 01915-475678</b></p>
 </div>
 
-
 <!-- 👨‍💻 Programmer Info -->
 <h6>PROGRAMMER INFO:</h6>
 <div class="profile">
-    <img src="Picsart_24-10-29_01-18-51-622.jpg">
+    <img src="Picsart_24-10-29_01-18-51-622.jpg" alt="Programmer Photo">
     <h1>FAHIM HOSSAIN</h1>
     <p>Contact with Developer</p>
 
     <div class="contact-icons">
         <a href="mailto:mdfahim35863@gmail.com?subject=Contact With Developer&body=I am a user of your website.">
-            <img src="mail logo.png">
+            <img src="mail logo.png" alt="Mail Icon">
         </a>
 
         <a href="https://www.facebook.com/share/19gNtJUpva/">
-            <img src="facbook logo.png">
+            <img src="facbook logo.png" alt="Facebook Icon">
         </a>
 
         <a href="https://www.instagram.com/fahim.41?igsh=MjZubXh2YmZuZ3Ro">
-            <img src="Instagram logo.png">
+            <img src="Instagram logo.png" alt="Instagram Icon">
         </a>
     </div>
 </div>
