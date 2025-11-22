@@ -1,136 +1,188 @@
-<html>
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <style>
+<meta charset="UTF-8">
+<title>Coaching Information</title>
+
+<style>
+
+    body{
+        margin:0;
+        font-family: Arial, sans-serif;
+        background:#f4f7fb;
+    }
+
+    /* 🔴 Scrolling Notice */
     .scrolling-text {
       width: 100%;
       overflow: hidden;
       white-space: nowrap;
-      box-sizing: border-box;
-      background-color: red; /* Red background */
-      color: white; /* Optional: white text for contrast */
-      padding: 10px; /* Optional: some padding */
+      background-color: red;
+      color: white;
+      padding: 10px;
+      font-size:16px;
+      font-weight:600;
     }
-
     .scrolling-text span {
       display: inline-block;
       padding-left: 100%;
       animation: scroll-left 9s linear infinite;
     }
-
     @keyframes scroll-left {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
-  </style>
+
+    /* 🔵 Top Bar */
+    .topbar{
+        width:100%;
+        background:#fff;
+        padding:12px 20px;
+        display:flex;
+        justify-content:flex-end;
+        box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        position:sticky;
+        top:0;
+        z-index:999;
+    }
+    .login-btn{
+        padding:10px 20px;
+        font-size:18px;
+        border:none;
+        background:#3b82f6;
+        color:white;
+        border-radius:8px;
+        cursor:pointer;
+        text-decoration:none;
+        font-weight:bold;
+    }
+    .login-btn:hover{
+        background:#2563eb;
+    }
+
+    h1, h6{
+        text-align:center;
+    }
+
+    .main-title{
+        font-size:40px;
+        margin-top:20px;
+    }
+
+    .sub-text{
+        text-align:center;
+        font-size:18px;
+        margin-bottom:20px;
+    }
+
+    /* 📌 Attendance Box */
+    .box{
+        background:white;
+        width:90%;
+        margin:10px auto;
+        padding:20px;
+        border-radius:12px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        text-align:center;
+    }
+    .box a{
+        text-decoration:none;
+        font-size:28px;
+        font-weight:bold;
+        color:#2563eb;
+    }
+    .box a:hover{
+        color:#1e40af;
+    }
+
+    /* 👤 Director & Programmer */
+    .profile{
+        background:white;
+        width:90%;
+        margin:20px auto;
+        padding:20px;
+        border-radius:12px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        text-align:center;
+    }
+    .profile img{
+        border-radius:12px;
+        width:300px;
+    }
+    .contact-icons img{
+        width:40px;
+        margin:8px;
+    }
+
+</style>
 </head>
+
 <body>
 
+<!-- 🔴 Scrolling Notice -->
 <div class="scrolling-text">
-  <span>এই ওয়েবসাইটটি ক্ষণাবেক্ষণের কার্যক্রম চলমান, যদি কোন সমস্যার সম্মুখীন হন তাহলে কর্তৃপক্ষকে অবগত করুন ধন্যবাদ। </span>
+  <span>এই ওয়েবসাইটটি রক্ষণাবেক্ষণের কাজ চলমান… কোনো সমস্যা হলে কর্তৃপক্ষকে জানান। ধন্যবাদ।</span>
+</div>
+
+<!-- 🔵 Topbar + Login -->
+<div class="topbar">
+   <a href="admin login.html" class="login-btn">Student Info</a>
+</div>
+
+<!-- 🟣 Title -->
+<h1 class="main-title">All Information About Coaching</h1>
+<p class="sub-text">I Will Try To Make A Website – Please Support Me – Thank You</p>
+
+
+<!-- 📘 Attendance Section -->
+<div class="box">
+    <a href="march.html">1 — This Is Our March Attendance</a>
+</div>
+
+<div class="box">
+    <a href="april.html">2 — This Is Our April Attendance</a>
+</div>
+
+<div class="box">
+    <a href="may.html">3 — This Is Our May Attendance</a>
+</div>
+
+
+<!-- 👨‍🏫 Director Info -->
+<h6>DIRECTOR INFO:</h6>
+<div class="profile">
+    <a href="director info.html">
+        <img src="Director info.jpg">
+    </a>
+    <h1><a href="director info.html" style="text-decoration:none; color:black;">JIHAN SARKER MASUM</a></h1>
+    <p><b>BBA, MBA (Accounting)<br>
+National University<br>
+Director: National College of Education<br>
+Mobile: 01915-475678</b></p>
+</div>
+
+
+<!-- 👨‍💻 Programmer Info -->
+<h6>PROGRAMMER INFO:</h6>
+<div class="profile">
+    <img src="Picsart_24-10-29_01-18-51-622.jpg">
+    <h1>FAHIM HOSSAIN</h1>
+    <p>Contact</p>
+
+    <div class="contact-icons">
+        <a href="mailto:mdfahim35863@gmail.com?subject=Contact With Developer&body=I am a user of your website.">
+            <img src="mail logo.png"> 
+        </a>
+
+        <a href="https://www.facebook.com/share/19gNtJUpva/">
+            <img src="facbook logo.png">
+        </a>
+
+        <a href="https://www.instagram.com/fahim.41?igsh=MjZubXh2YmZuZ3Ro">
+            <img src="Instagram logo.png">
+        </a>
+    </div>
 </div>
 
 </body>
-</html>
-<hr>
-<html>
-  <body>
-    <table style="background-color:powderblue; width:100%" >
-      <tr>
-      <td style="text-align: right; vertical-align: middle;"><a href="admin login.html">
-          <input type="submit" value="Login" style="width: 150px; height: 50px; font-size:20px;">
-      </a></td>
-      </tr>
-    </table>
-  </body>
-</html>
-<hr>
-<html>
-  <head>
-    <title>All Information About Our Coaching</title>
-  </head>
-  <body>
-    <center><p><font size="12"<h1>All Information About Coaching</font></h1></p></center>
-    <br>
-    <p><center><font size="3">I Will Try To Make A Website Plz Support Me Thank You</font></center></p><br>
-    <center><p><font size="3">ATTENDANCE OF YEAR FINAL EXAM</font>
-      <br><br>
-      <table>
-        <tr>
-          <td>
-            <ul type="disc">
-           <li><font size="7"><a href="march.html" style="text-decoration:none;">1 This Is Our March Attendance </font></a></li>
-         </ul>
-         </td>
-        </tr>
-      </table>
-    <br>
-    <table>
-        <tr>
-          <td >
-            <ul type="disc">
-              <li><font size="7"><a href="april.html" style="text-decoration:none;">2 This Is Our April Attendance</font> </a></li>
-            </ul>
-          </td>
-        </tr>
-      </table>
-    <br>
-    <table>
-        <tr>
-          <td>
-            <ul type="disc">
-              <li><font size="7"><a href="may.html" style="text-decoration:none;">3 This Is Our May Attendance</font> </a> </li>
-            </ul> 
-          </td>
-        </tr>
-      </table>
-    
-  </p>
-  </center>
-  </body>
-</html>
-<br>
-<hr>
-<h6>DIRECTOR INFO:</h6>
-<hr>
-<html>
-  <body>
-    <center>
-     <a href="director info.html"> <img src="Director info.jpg"></a>
-    </center>
-    <center>
-     <a href="director info.html" style="text-decoration:none;"><h1><font color="black">JIHAN SARKER MASUM</font></h1></a>
-    <p> <font size="2"><b> BBA, MBA (Accounting)<br> National University<br>
-Director: National College of Education<br>
-Mobile: 01915-475678
-    </b></font></p>
-    </center>
-  </body>
-</html>
-<hr>
-<h6>PROGRAMMER INFO:</h6>
-<hr>
-<html>
-  <body>
-    <center>
-      <img src="Picsart_24-10-29_01-18-51-622.jpg" width="565px" height="640px">
-      <h1>FAHIM HOSSAIN</h1>
-      <p>Contact</p>
-    </center>
-  </body>
-</html>
-<html>
-  <body>
-    <center>
-      <h5>
-      <a href="mailto:mdfahim35863@gmail.com?subject=Contect With developer&body=I am a user your your website." style="text-decoration:none;"> <img src="mail logo.png"width="40px"height="40px">
-        EMAIL</a><br>
-      <a href="https://www.facebook.com/share/19gNtJUpva/"style="text-decoration:none;"><img src="facbook logo.png"widht="50px"height="50px">FACEBOOK</a><br>
-      <a href="https://www.instagram.com/fahim.41?igsh=MjZubXh2YmZuZ3Ro"style=text-decoration:none;"><img src="Instagram logo.png" widht="40px" height="40px">INSTAGRAM</a>
-      </h5>
-    </center>
-   </body>
 </html>
