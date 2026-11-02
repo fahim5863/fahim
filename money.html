@@ -4,63 +4,341 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fahim Money Manager</title>
+<title>FH MONEY MANAGER</title>
 
 <style>
 :root{
- --bg:#0b1220;--panel:#121d30;--line:#26344c;
- --text:#eef4ff;--muted:#9aabc4;
- --green:#38d39f;--red:#ff7185;--blue:#72a7ff
+ --bg:#0b1220;
+ --panel:#121d30;
+ --line:#26344c;
+ --text:#eef4ff;
+ --muted:#9aabc4;
+ --green:#38d39f;
+ --red:#ff7185;
+ --blue:#72a7ff
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,Arial,sans-serif}
-header{padding:20px max(18px,calc((100% - 1100px)/2));border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
-h1{font-size:22px;margin:0}
-main{max-width:1100px;margin:24px auto;padding:0 16px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.stat small,.muted{color:var(--muted)}
-.stat strong{display:block;font-size:25px;margin-top:7px}
-input,select,button{font:inherit;border-radius:10px;padding:11px 12px;border:1px solid var(--line);background:#0d1728;color:var(--text);max-width:100%}
-button{background:#2766ce;border:0;font-weight:650;cursor:pointer}
-button:disabled{opacity:.6;cursor:not-allowed}
-button.secondary{background:#26344c}
-button.danger{background:#963b4b}
-form .fields{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-form button{grid-column:1/-1}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.row.space{justify-content:space-between}
-table{width:100%;border-collapse:collapse;margin-top:12px}
-th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}
-th{color:var(--muted);font-weight:600}
-#auth{max-width:440px;margin:50px auto}
-.auth-heading{text-align:center;margin-bottom:20px}
-.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;background:#0d1728;border:1px solid var(--line);border-radius:12px;margin-bottom:20px}
-.auth-tab{background:transparent;color:var(--muted);border-radius:8px;padding:12px 8px;margin:0}
-.auth-tab.active{background:#2766ce;color:white}
-#auth input{width:100%;margin:7px 0}
-.auth-submit{width:100%;margin-top:14px;padding:13px}
-.forgot-row{text-align:right;margin-top:12px}
-.forgot-link{background:none;border:0;color:var(--blue);padding:4px;font-size:14px}
-.forgot-link:hover{text-decoration:underline}
-.auth-message{min-height:22px;margin-top:14px;text-align:center}
-.hidden{display:none!important}
-.green{color:var(--green)}
-.red{color:var(--red)}
-.notice{color:#ffd78a;line-height:1.5}
-.daily-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.daily-box{background:#0d1728;border:1px solid var(--line);border-radius:12px;padding:15px}
-.daily-box small{color:var(--muted)}
-.daily-box strong{display:block;font-size:22px;margin-top:7px}
-.date-filter{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.date-filter input{min-width:160px}
+
+*{
+ box-sizing:border-box;
+}
+
+html,body{
+ width:100%;
+ max-width:100%;
+ margin:0;
+ overflow-x:hidden;
+}
+
+body{
+ background:var(--bg);
+ color:var(--text);
+ font:15px system-ui,Arial,sans-serif;
+}
+
+header{
+ padding:20px max(18px,calc((100% - 1100px)/2));
+ border-bottom:1px solid var(--line);
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+}
+
+h1{
+ font-size:22px;
+ margin:0;
+}
+
+main{
+ width:100%;
+ max-width:1100px;
+ margin:24px auto;
+ padding:0 16px;
+}
+
+.card{
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:18px;
+ margin-bottom:16px;
+ min-width:0;
+ max-width:100%;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:14px;
+}
+
+.stat small,.muted{
+ color:var(--muted);
+}
+
+.stat strong{
+ display:block;
+ font-size:25px;
+ margin-top:7px;
+}
+
+input,select,button{
+ font:inherit;
+ border-radius:10px;
+ padding:11px 12px;
+ border:1px solid var(--line);
+ background:#0d1728;
+ color:var(--text);
+ max-width:100%;
+ min-width:0;
+}
+
+button{
+ background:#2766ce;
+ border:0;
+ font-weight:650;
+ cursor:pointer;
+}
+
+button:disabled{
+ opacity:.6;
+ cursor:not-allowed;
+}
+
+button.secondary{
+ background:#26344c;
+}
+
+button.danger{
+ background:#963b4b;
+}
+
+form .fields{
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:10px;
+}
+
+form .fields>*{
+ width:100%;
+ min-width:0;
+}
+
+form button{
+ grid-column:1/-1;
+}
+
+.row{
+ display:flex;
+ gap:10px;
+ align-items:center;
+ flex-wrap:wrap;
+ min-width:0;
+}
+
+.row.space{
+ justify-content:space-between;
+}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+ margin-top:12px;
+}
+
+th,td{
+ text-align:left;
+ padding:12px 8px;
+ border-bottom:1px solid var(--line);
+}
+
+th{
+ color:var(--muted);
+ font-weight:600;
+}
+
+#auth{
+ max-width:440px;
+ margin:50px auto;
+}
+
+.auth-heading{
+ text-align:center;
+ margin-bottom:20px;
+}
+
+.auth-tabs{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+ padding:5px;
+ background:#0d1728;
+ border:1px solid var(--line);
+ border-radius:12px;
+ margin-bottom:20px;
+}
+
+.auth-tab{
+ background:transparent;
+ color:var(--muted);
+ border-radius:8px;
+ padding:12px 8px;
+ margin:0;
+}
+
+.auth-tab.active{
+ background:#2766ce;
+ color:white;
+}
+
+#auth input{
+ width:100%;
+ margin:7px 0;
+}
+
+.auth-submit{
+ width:100%;
+ margin-top:14px;
+ padding:13px;
+}
+
+.forgot-row{
+ text-align:right;
+ margin-top:12px;
+}
+
+.forgot-link{
+ background:none;
+ border:0;
+ color:var(--blue);
+ padding:4px;
+ font-size:14px;
+}
+
+.forgot-link:hover{
+ text-decoration:underline;
+}
+
+.auth-message{
+ min-height:22px;
+ margin-top:14px;
+ text-align:center;
+}
+
+.hidden{
+ display:none!important;
+}
+
+.green{
+ color:var(--green);
+}
+
+.red{
+ color:var(--red);
+}
+
+.notice{
+ color:#ffd78a;
+ line-height:1.5;
+}
+
+.daily-grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:12px;
+}
+
+.daily-box{
+ background:#0d1728;
+ border:1px solid var(--line);
+ border-radius:12px;
+ padding:15px;
+ min-width:0;
+}
+
+.daily-box small{
+ color:var(--muted);
+}
+
+.daily-box strong{
+ display:block;
+ font-size:22px;
+ margin-top:7px;
+ overflow-wrap:anywhere;
+}
+
+.date-filter{
+ display:flex;
+ gap:10px;
+ align-items:center;
+ flex-wrap:wrap;
+}
+
+.date-filter input{
+ min-width:160px;
+}
+
 @media(max-width:720px){
- .grid,.daily-grid{grid-template-columns:1fr}
- .fields,form .fields{grid-template-columns:1fr 1fr}
- header{align-items:flex-start;flex-direction:column}
- table{font-size:13px}
- th,td{padding:9px 5px}
+
+ main{
+  padding:0 12px;
+ }
+
+ header{
+  align-items:flex-start;
+  flex-direction:column;
+ }
+
+ .grid,.daily-grid{
+  grid-template-columns:1fr;
+ }
+
+ .card{
+  padding:14px;
+ }
+
+ form .fields{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+ }
+
+ form .fields input,
+ form .fields select{
+  width:100%;
+  min-width:0;
+  font-size:14px;
+ }
+
+ form .fields input[type="date"],
+ form .fields input[type="text"],
+ form .fields button{
+  grid-column:1/-1;
+ }
+
+ table{
+  font-size:13px;
+ }
+
+ th,td{
+  padding:9px 5px;
+ }
+
+ .row input,
+ .row select{
+  min-width:0;
+  max-width:100%;
+ }
+
+ .date-filter input{
+  min-width:0;
+  flex:1;
+ }
+
+ #auth{
+  margin:25px auto;
+ }
 }
+
 </style>
 </head>
 
@@ -79,6 +357,7 @@ th{color:var(--muted);font-weight:600}
 <!-- LOGIN / SIGNUP -->
 
 <section id="auth" class="card">
+
  <div class="auth-heading">
   <h2>Welcome 👋</h2>
   <p class="muted">Manage your money easily and securely.</p>
@@ -90,6 +369,7 @@ th{color:var(--muted);font-weight:600}
  </div>
 
  <input id="email" type="email" placeholder="Email address" autocomplete="email">
+
  <input id="password" type="password" placeholder="Password (at least 6 characters)" autocomplete="current-password">
 
  <div class="forgot-row" id="forgotRow">
@@ -97,7 +377,9 @@ th{color:var(--muted);font-weight:600}
  </div>
 
  <button type="button" id="authSubmit" class="auth-submit">Log in</button>
+
  <p id="authMessage" class="notice auth-message"></p>
+
 </section>
 
 
@@ -106,6 +388,7 @@ th{color:var(--muted);font-weight:600}
 <section id="app" class="hidden">
 
  <div class="grid">
+
   <div class="card stat">
    <small>Total income</small>
    <strong id="income" class="green">৳0.00</strong>
@@ -120,15 +403,18 @@ th{color:var(--muted);font-weight:600}
    <small>Current balance</small>
    <strong id="balance">৳0.00</strong>
   </div>
+
  </div>
 
 
- <!-- ADD TRANSACTION -->
+<!-- ADD TRANSACTION -->
 
  <div class="card">
+
   <h2>Add transaction</h2>
 
   <form id="transactionForm">
+
    <div class="fields">
 
     <select id="type">
@@ -151,19 +437,24 @@ th{color:var(--muted);font-weight:600}
     </select>
 
     <input id="date" type="date" required>
+
     <input id="note" type="text" placeholder="Note (optional)">
 
     <button type="submit">Save transaction</button>
+
    </div>
+
   </form>
 
   <p id="formMessage" class="notice"></p>
+
  </div>
 
 
- <!-- MONTHLY BUDGET -->
+<!-- MONTHLY BUDGET -->
 
  <div class="card">
+
   <div class="row space">
    <h2>Monthly budget</h2>
    <input id="budgetMonth" type="month">
@@ -175,12 +466,14 @@ th{color:var(--muted);font-weight:600}
   </div>
 
   <p id="budgetStatus" class="muted">Set a budget to track your spending.</p>
+
  </div>
 
 
- <!-- DAILY SUMMARY -->
+<!-- DAILY SUMMARY -->
 
  <div class="card">
+
   <h2>📅 Daily Income & Expense</h2>
 
   <p class="muted">Select any date to see that day's total calculation.</p>
@@ -210,12 +503,14 @@ th{color:var(--muted);font-weight:600}
    </div>
 
   </div>
+
  </div>
 
 
- <!-- TRANSACTIONS -->
+<!-- TRANSACTIONS -->
 
  <div class="card">
+
   <div class="row space">
    <h2>Transactions</h2>
 
@@ -233,6 +528,7 @@ th{color:var(--muted);font-weight:600}
   <p id="transactionFilterLabel" class="muted"></p>
 
   <div style="overflow-x:auto">
+
    <table>
     <thead>
      <tr>
@@ -243,22 +539,32 @@ th{color:var(--muted);font-weight:600}
       <th></th>
      </tr>
     </thead>
+
     <tbody id="transactions"></tbody>
+
    </table>
+
   </div>
 
   <p id="empty" class="muted">No transactions yet.</p>
+
  </div>
 
 
- <!-- CATEGORY SUMMARY -->
+<!-- CATEGORY SUMMARY -->
 
  <div class="card">
+
   <h2>Spending by category</h2>
-  <div id="categorySummary" class="muted">Add expenses to see your category summary.</div>
+
+  <div id="categorySummary" class="muted">
+   Add expenses to see your category summary.
+  </div>
+
  </div>
 
 </section>
+
 </main>
 
 
@@ -289,7 +595,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
 
-// FIREBASE CONFIG
+// FIREBASE CONFIG - ORIGINAL PROJECT
 
 const firebaseConfig = {
  apiKey: "AIzaSyDsooWqRs7UFqoN7cGxT7hTc-ErORqk9GM",
@@ -352,6 +658,9 @@ let currentUser = null;
 let allTransactions = [];
 let authMode = "login";
 
+
+// MONEY FORMAT
+
 const money = n =>
  new Intl.NumberFormat("en-BD", {
   style:"currency",
@@ -359,11 +668,17 @@ const money = n =>
   maximumFractionDigits:2
  }).format(n);
 
+
+// LOCAL DATE
+
 function getLocalDate(){
+
  const d = new Date();
+
  const y = d.getFullYear();
  const m = String(d.getMonth()+1).padStart(2,"0");
  const day = String(d.getDate()).padStart(2,"0");
+
  return `${y}-${m}-${day}`;
 }
 
@@ -426,6 +741,7 @@ function friendly(e){
 try{
 
  const app = initializeApp(firebaseConfig);
+
  auth = getAuth(app);
  db = getFirestore(app);
 
@@ -441,17 +757,21 @@ try{
    user?.email || "";
 
   if(user){
+
    try{
     await refresh();
    }catch(e){
     formMessage.textContent = e.message;
    }
+
   }
 
  });
 
 }catch(e){
+
  authMessage.textContent = e.message;
+
 }
 
 
@@ -480,17 +800,26 @@ authSubmit.addEventListener("click",async()=>{
  try{
 
   if(authMode === "login"){
+
    await signInWithEmailAndPassword(auth,email,password);
+
   }else{
+
    await createUserWithEmailAndPassword(auth,email,password);
+
   }
 
  }catch(e){
+
   authMessage.textContent = friendly(e);
+
  }finally{
+
   authSubmit.disabled = false;
+
   authSubmit.textContent =
    authMode === "login" ? "Log in" : "Create account";
+
  }
 
 });
@@ -543,18 +872,26 @@ forgotPassword.addEventListener("click",async()=>{
 // LOGOUT
 
 logoutButton.addEventListener("click",async()=>{
+
  try{
+
   await signOut(auth);
+
  }catch(e){
+
   authMessage.textContent = e.message;
+
  }
+
 });
 
 
 // USER COLLECTION
 
 function userCollection(name){
+
  return collection(db,"users",currentUser.uid,name);
+
 }
 
 
@@ -576,7 +913,9 @@ async function refresh(){
 
  render();
  renderDailySummary();
+
  await loadBudget();
+
 }
 
 
@@ -585,6 +924,7 @@ async function refresh(){
 transactionForm.addEventListener("submit",async e=>{
 
  e.preventDefault();
+
  formMessage.textContent = "";
 
  const amount = Number(
@@ -592,22 +932,27 @@ transactionForm.addEventListener("submit",async e=>{
  );
 
  if(!Number.isFinite(amount) || amount <= 0){
+
   formMessage.textContent = "Enter an amount greater than zero.";
   return;
+
  }
 
  try{
 
   await addDoc(userCollection("transactions"),{
+
    type:document.querySelector("#type").value,
    amount,
    category:document.querySelector("#category").value,
    date:document.querySelector("#date").value,
    note:document.querySelector("#note").value.trim(),
    createdAt:Date.now()
+
   });
 
   transactionForm.reset();
+
   document.querySelector("#date").value = today;
 
   await refresh();
@@ -615,13 +960,16 @@ transactionForm.addEventListener("submit",async e=>{
   formMessage.textContent = "Transaction saved successfully.";
 
  }catch(err){
+
   formMessage.textContent = err.message;
+
  }
 
 });
 
 
 // DAILY SUMMARY
+// Only this section changes when Daily Date is selected.
 
 function renderDailySummary(){
 
@@ -629,15 +977,17 @@ function renderDailySummary(){
 
  if(!selectedDate){
 
-  dailyDateLabel.textContent = "Select a date to see daily summary.";
+  dailyDateLabel.textContent =
+   "Select a date to see daily summary.";
+
   dailyIncome.textContent = money(0);
   dailyExpense.textContent = money(0);
   dailyBalance.textContent = money(0);
 
-  transactionFilterLabel.textContent =
-   "Showing monthly transactions.";
+  dailyBalance.className = "";
 
   return;
+
  }
 
  const dayTransactions = allTransactions.filter(
@@ -665,66 +1015,89 @@ function renderDailySummary(){
  dailyDateLabel.textContent =
   `Daily summary for ${selectedDate}`;
 
- transactionFilterLabel.textContent =
-  `Showing transactions for ${selectedDate}`;
-
 }
 
 
 // RENDER DASHBOARD AND TRANSACTIONS
+// Dashboard always shows the selected MONTH, not the Daily Date.
 
 function render(){
 
- const selectedDate = dailyDate.value;
+ // Monthly Dashboard
 
- const filtered = allTransactions.filter(t=>{
+ const monthlyTransactions = allTransactions.filter(t=>
+  !filterMonth.value ||
+  t.date.startsWith(filterMonth.value)
+ );
 
-  const matchesDate = selectedDate
-   ? t.date === selectedDate
-   : (!filterMonth.value || t.date.startsWith(filterMonth.value));
-
-  const matchesType =
-   filterType.value === "all" ||
-   t.type === filterType.value;
-
-  return matchesDate && matchesType;
-
- });
-
- const incomeTotal = filtered
-  .filter(t=>t.type === "income")
+ const incomeTotal = monthlyTransactions
+  .filter(t=>t.type==="income")
   .reduce((s,t)=>s+Number(t.amount),0);
 
- const expenseTotal = filtered
-  .filter(t=>t.type === "expense")
+ const expenseTotal = monthlyTransactions
+  .filter(t=>t.type==="expense")
   .reduce((s,t)=>s+Number(t.amount),0);
 
  incomeElement.textContent = money(incomeTotal);
  expenseElement.textContent = money(expenseTotal);
  balanceElement.textContent = money(incomeTotal-expenseTotal);
 
+
+ // Transactions list uses Month and Type filters only.
+
+ const filtered = allTransactions.filter(t=>{
+
+  const matchesMonth =
+   !filterMonth.value ||
+   t.date.startsWith(filterMonth.value);
+
+  const matchesType =
+   filterType.value === "all" ||
+   t.type === filterType.value;
+
+  return matchesMonth && matchesType;
+
+ });
+
+
  transactionsElement.innerHTML = filtered.map(t=>`
 
   <tr>
    <td>${escapeHtml(t.date)}</td>
-   <td class="${t.type==="income"?"green":"red"}">${escapeHtml(t.type)}</td>
-   <td>${escapeHtml(t.category)}${t.note?" · "+escapeHtml(t.note):""}</td>
-   <td>${t.type==="income"?"+":"−"}${money(t.amount)}</td>
+
+   <td class="${t.type==="income"?"green":"red"}">
+    ${escapeHtml(t.type)}
+   </td>
+
+   <td>
+    ${escapeHtml(t.category)}${t.note?" · "+escapeHtml(t.note):""}
+   </td>
+
+   <td>
+    ${t.type==="income"?"+":"−"}${money(t.amount)}
+   </td>
+
    <td>
     <button class="danger" data-delete="${escapeHtml(t.id)}" type="button">
      Delete
     </button>
    </td>
+
   </tr>
 
  `).join("");
 
  emptyElement.classList.toggle("hidden",filtered.length>0);
 
+
+ // Category Summary
+
  const cats = {};
 
  filtered.filter(t=>t.type==="expense").forEach(t=>{
+
   cats[t.category] = (cats[t.category]||0)+Number(t.amount);
+
  });
 
  categorySummary.innerHTML =
@@ -739,13 +1112,17 @@ function render(){
 // HTML SECURITY
 
 function escapeHtml(s){
+
  return String(s??"").replace(/[&<>"']/g,c=>({
+
   "&":"&amp;",
   "<":"&lt;",
   ">":"&gt;",
   '"':"&quot;",
   "'":"&#39;"
+
  }[c]));
+
 }
 
 
@@ -754,17 +1131,23 @@ function escapeHtml(s){
 transactionsElement.addEventListener("click",async e=>{
 
  const id = e.target.dataset.delete;
+
  if(!id) return;
 
  if(!confirm("Delete this transaction?")) return;
 
  try{
+
   await deleteDoc(
    doc(db,"users",currentUser.uid,"transactions",id)
   );
+
   await refresh();
+
  }catch(err){
+
   formMessage.textContent = err.message;
+
  }
 
 });
@@ -772,18 +1155,31 @@ transactionsElement.addEventListener("click",async e=>{
 
 // FILTERS
 
-filterMonth.addEventListener("change",render);
+filterMonth.addEventListener("change",()=>{
+
+ render();
+ updateBudgetStatus();
+
+});
+
 filterType.addEventListener("change",render);
 
+
+// DAILY DATE EVENTS
+// Changing Daily Date never changes the Dashboard or Transactions.
+
 dailyDate.addEventListener("change",()=>{
+
  renderDailySummary();
- render();
+
 });
 
 clearDailyDate.addEventListener("click",()=>{
+
  dailyDate.value = "";
+
  renderDailySummary();
- render();
+
 });
 
 
@@ -808,6 +1204,7 @@ async function loadBudget(){
   : "";
 
  updateBudgetStatus();
+
 }
 
 
@@ -816,10 +1213,14 @@ async function loadBudget(){
 function updateBudgetStatus(){
 
  const m = budgetMonth.value || month;
+
  const limit = Number(budgetAmount.value);
 
  const spent = allTransactions
-  .filter(t=>t.type==="expense" && t.date.startsWith(m))
+  .filter(t=>
+   t.type==="expense" &&
+   t.date.startsWith(m)
+  )
   .reduce((s,t)=>s+Number(t.amount),0);
 
  budgetStatus.textContent = limit > 0
@@ -837,22 +1238,30 @@ saveBudgetButton.addEventListener("click",async()=>{
  const m = budgetMonth.value;
 
  if(!m || !Number.isFinite(limit) || limit <= 0){
+
   budgetStatus.textContent = "Enter a valid monthly budget.";
   return;
+
  }
 
  try{
 
   await setDoc(
    doc(db,"users",currentUser.uid,"budgets",m),
-   {limit,updatedAt:Date.now()}
+   {
+    limit,
+    updatedAt:Date.now()
+   }
   );
 
   updateBudgetStatus();
+
   budgetStatus.textContent += " · Budget saved.";
 
  }catch(e){
+
   budgetStatus.textContent = e.message;
+
  }
 
 });
@@ -860,5 +1269,6 @@ saveBudgetButton.addEventListener("click",async()=>{
 budgetMonth.addEventListener("change",loadBudget);
 
 </script>
+
 </body>
 </html>
