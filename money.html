@@ -8,193 +8,58 @@
 
 <style>
 :root{
-  --bg:#0b1220;
-  --panel:#121d30;
-  --line:#26344c;
-  --text:#eef4ff;
-  --muted:#9aabc4;
-  --green:#38d39f;
-  --red:#ff7185;
-  --blue:#72a7ff;
+ --bg:#0b1220;--panel:#121d30;--line:#26344c;
+ --text:#eef4ff;--muted:#9aabc4;
+ --green:#38d39f;--red:#ff7185;--blue:#72a7ff
 }
-
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font:15px system-ui,Arial,sans-serif;
-}
-
-header{
-  padding:20px max(18px,calc((100% - 1100px)/2));
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
+body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,Arial,sans-serif}
+header{padding:20px max(18px,calc((100% - 1100px)/2));border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
 h1{font-size:22px;margin:0}
-
-main{
-  max-width:1100px;
-  margin:24px auto;
-  padding:0 16px;
-}
-
-.card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:16px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
+main{max-width:1100px;margin:24px auto;padding:0 16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .stat small,.muted{color:var(--muted)}
-
-.stat strong{
-  display:block;
-  font-size:25px;
-  margin-top:7px;
-}
-
-input,select,button{
-  font:inherit;
-  border-radius:10px;
-  padding:11px 12px;
-  border:1px solid var(--line);
-  background:#0d1728;
-  color:var(--text);
-  max-width:100%;
-}
-
-button{
-  background:#2766ce;
-  border:0;
-  font-weight:650;
-  cursor:pointer;
-}
-
+.stat strong{display:block;font-size:25px;margin-top:7px}
+input,select,button{font:inherit;border-radius:10px;padding:11px 12px;border:1px solid var(--line);background:#0d1728;color:var(--text);max-width:100%}
+button{background:#2766ce;border:0;font-weight:650;cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
 button.secondary{background:#26344c}
 button.danger{background:#963b4b}
-
-form .fields{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
+form .fields{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 form button{grid-column:1/-1}
-
-.row{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .row.space{justify-content:space-between}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:12px;
-}
-
-th,td{
-  text-align:left;
-  padding:12px 8px;
-  border-bottom:1px solid var(--line);
-}
-
-th{
-  color:var(--muted);
-  font-weight:600;
-}
-
-/* Login and Signup box */
-
-#auth{
-  max-width:440px;
-  margin:50px auto;
-}
-
-.auth-heading{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.auth-heading h2{
-  margin-bottom:6px;
-}
-
-.auth-tabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  padding:5px;
-  background:#0d1728;
-  border:1px solid var(--line);
-  border-radius:12px;
-  margin-bottom:20px;
-}
-
-.auth-tab{
-  background:transparent;
-  color:var(--muted);
-  border-radius:8px;
-  padding:12px 8px;
-  margin:0;
-}
-
-.auth-tab.active{
-  background:#2766ce;
-  color:white;
-}
-
-#auth input{
-  width:100%;
-  margin:7px 0;
-}
-
-#auth .auth-submit{
-  width:100%;
-  margin-top:14px;
-  padding:13px;
-}
-
-.auth-message{
-  min-height:22px;
-  margin-top:14px;
-  text-align:center;
-}
-
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600}
+#auth{max-width:440px;margin:50px auto}
+.auth-heading{text-align:center;margin-bottom:20px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;background:#0d1728;border:1px solid var(--line);border-radius:12px;margin-bottom:20px}
+.auth-tab{background:transparent;color:var(--muted);border-radius:8px;padding:12px 8px;margin:0}
+.auth-tab.active{background:#2766ce;color:white}
+#auth input{width:100%;margin:7px 0}
+.auth-submit{width:100%;margin-top:14px;padding:13px}
+.forgot-row{text-align:right;margin-top:12px}
+.forgot-link{background:none;border:0;color:var(--blue);padding:4px;font-size:14px}
+.forgot-link:hover{text-decoration:underline}
+.auth-message{min-height:22px;margin-top:14px;text-align:center}
 .hidden{display:none!important}
 .green{color:var(--green)}
 .red{color:var(--red)}
-
-.notice{
-  color:#ffd78a;
-  line-height:1.5;
-}
-
+.notice{color:#ffd78a;line-height:1.5}
+.daily-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.daily-box{background:#0d1728;border:1px solid var(--line);border-radius:12px;padding:15px}
+.daily-box small{color:var(--muted)}
+.daily-box strong{display:block;font-size:22px;margin-top:7px}
+.date-filter{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.date-filter input{min-width:160px}
 @media(max-width:720px){
-  .grid{grid-template-columns:1fr}
-  .fields,form .fields{grid-template-columns:1fr 1fr}
-  header{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-  table{font-size:13px}
-  th,td{padding:9px 5px}
+ .grid,.daily-grid{grid-template-columns:1fr}
+ .fields,form .fields{grid-template-columns:1fr 1fr}
+ header{align-items:flex-start;flex-direction:column}
+ table{font-size:13px}
+ th,td{padding:9px 5px}
 }
 </style>
 </head>
@@ -202,269 +67,245 @@ th{
 <body>
 
 <header>
-  <h1>💰 Fahim Money Manager</h1>
-  <div class="row">
-    <span id="userEmail" class="muted"></span>
-    <button id="logout" class="secondary hidden">Log out</button>
-  </div>
+ <h1>💰 FH MONEY MANAGER</h1>
+ <div class="row">
+  <span id="userEmail" class="muted"></span>
+  <button id="logout" class="secondary hidden">Log out</button>
+ </div>
 </header>
 
 <main>
 
-<!-- LOGIN / SIGNUP SECTION -->
+<!-- LOGIN / SIGNUP -->
 
 <section id="auth" class="card">
+ <div class="auth-heading">
+  <h2>Welcome 👋</h2>
+  <p class="muted">Manage your money easily and securely.</p>
+ </div>
 
-  <div class="auth-heading">
-    <h2>Welcome 👋</h2>
-    <p class="muted">Manage your money easily and securely.</p>
-  </div>
+ <div class="auth-tabs">
+  <button type="button" id="loginTab" class="auth-tab active">Log in</button>
+  <button type="button" id="signupTab" class="auth-tab">Create account</button>
+ </div>
 
-  <div class="auth-tabs">
-    <button type="button" id="loginTab" class="auth-tab active">
-      Log in
-    </button>
+ <input id="email" type="email" placeholder="Email address" autocomplete="email">
+ <input id="password" type="password" placeholder="Password (at least 6 characters)" autocomplete="current-password">
 
-    <button type="button" id="signupTab" class="auth-tab">
-      Create account
-    </button>
-  </div>
+ <div class="forgot-row" id="forgotRow">
+  <button type="button" id="forgotPassword" class="forgot-link">Forgot Password?</button>
+ </div>
 
-  <input
-    id="email"
-    type="email"
-    placeholder="Email address"
-    autocomplete="email"
-    required
-  >
-
-  <input
-    id="password"
-    type="password"
-    placeholder="Password (at least 6 characters)"
-    autocomplete="current-password"
-    minlength="6"
-    required
-  >
-
-  <button type="button" id="authSubmit" class="auth-submit">
-    Log in
-  </button>
-
-  <p id="authMessage" class="notice auth-message"></p>
-
+ <button type="button" id="authSubmit" class="auth-submit">Log in</button>
+ <p id="authMessage" class="notice auth-message"></p>
 </section>
 
 
-<!-- DASHBOARD SECTION -->
+<!-- DASHBOARD -->
 
 <section id="app" class="hidden">
 
-  <div class="grid">
-
-    <div class="card stat">
-      <small>Total income</small>
-      <strong id="income" class="green">৳0.00</strong>
-    </div>
-
-    <div class="card stat">
-      <small>Total expenses</small>
-      <strong id="expense" class="red">৳0.00</strong>
-    </div>
-
-    <div class="card stat">
-      <small>Current balance</small>
-      <strong id="balance">৳0.00</strong>
-    </div>
-
+ <div class="grid">
+  <div class="card stat">
+   <small>Total income</small>
+   <strong id="income" class="green">৳0.00</strong>
   </div>
 
-
-  <!-- ADD TRANSACTION -->
-
-  <div class="card">
-
-    <h2>Add transaction</h2>
-
-    <form id="transactionForm">
-
-      <div class="fields">
-
-        <select id="type">
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
-        </select>
-
-        <input
-          id="amount"
-          type="number"
-          min="0.01"
-          step="0.01"
-          placeholder="Amount"
-          required
-        >
-
-        <select id="category">
-          <option>Food</option>
-          <option>Transport</option>
-          <option>Shopping</option>
-          <option>Bills</option>
-          <option>Education</option>
-          <option>Health</option>
-          <option>Salary</option>
-          <option>Business</option>
-          <option>Other</option>
-        </select>
-
-        <input id="date" type="date" required>
-
-        <input
-          id="note"
-          type="text"
-          placeholder="Note (optional)"
-        >
-
-        <button type="submit">Save transaction</button>
-
-      </div>
-
-    </form>
-
-    <p id="formMessage" class="notice"></p>
-
+  <div class="card stat">
+   <small>Total expenses</small>
+   <strong id="expense" class="red">৳0.00</strong>
   </div>
 
+  <div class="card stat">
+   <small>Current balance</small>
+   <strong id="balance">৳0.00</strong>
+  </div>
+ </div>
 
-  <!-- MONTHLY BUDGET -->
 
-  <div class="card">
+ <!-- ADD TRANSACTION -->
 
-    <div class="row space">
-      <h2>Monthly budget</h2>
-      <input id="budgetMonth" type="month">
-    </div>
+ <div class="card">
+  <h2>Add transaction</h2>
 
-    <div class="row">
-      <input
-        id="budgetAmount"
-        type="number"
-        min="0"
-        step="0.01"
-        placeholder="Set monthly expense limit"
-      >
+  <form id="transactionForm">
+   <div class="fields">
 
-      <button id="saveBudget" type="button">Save budget</button>
-    </div>
+    <select id="type">
+     <option value="expense">Expense</option>
+     <option value="income">Income</option>
+    </select>
 
-    <p id="budgetStatus" class="muted">
-      Set a budget to track your spending.
-    </p>
+    <input id="amount" type="number" min="0.01" step="0.01" placeholder="Amount" required>
 
+    <select id="category">
+     <option>Food</option>
+     <option>Transport</option>
+     <option>Shopping</option>
+     <option>Bills</option>
+     <option>Education</option>
+     <option>Health</option>
+     <option>Salary</option>
+     <option>Business</option>
+     <option>Other</option>
+    </select>
+
+    <input id="date" type="date" required>
+    <input id="note" type="text" placeholder="Note (optional)">
+
+    <button type="submit">Save transaction</button>
+   </div>
+  </form>
+
+  <p id="formMessage" class="notice"></p>
+ </div>
+
+
+ <!-- MONTHLY BUDGET -->
+
+ <div class="card">
+  <div class="row space">
+   <h2>Monthly budget</h2>
+   <input id="budgetMonth" type="month">
   </div>
 
-
-  <!-- TRANSACTIONS -->
-
-  <div class="card">
-
-    <div class="row space">
-      <h2>Transactions</h2>
-
-      <div class="row">
-        <input id="filterMonth" type="month">
-
-        <select id="filterType">
-          <option value="all">All types</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-      </div>
-    </div>
-
-    <div style="overflow-x:auto">
-
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Category / Note</th>
-            <th>Amount</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody id="transactions"></tbody>
-      </table>
-
-    </div>
-
-    <p id="empty" class="muted">No transactions yet.</p>
-
+  <div class="row">
+   <input id="budgetAmount" type="number" min="0" step="0.01" placeholder="Set monthly expense limit">
+   <button id="saveBudget" type="button">Save budget</button>
   </div>
 
+  <p id="budgetStatus" class="muted">Set a budget to track your spending.</p>
+ </div>
 
-  <!-- CATEGORY SUMMARY -->
 
-  <div class="card">
-    <h2>Spending by category</h2>
+ <!-- DAILY SUMMARY -->
 
-    <div id="categorySummary" class="muted">
-      Add expenses to see your category summary.
-    </div>
+ <div class="card">
+  <h2>📅 Daily Income & Expense</h2>
+
+  <p class="muted">Select any date to see that day's total calculation.</p>
+
+  <div class="date-filter">
+   <input id="dailyDate" type="date">
+   <button id="clearDailyDate" type="button" class="secondary">Clear date</button>
   </div>
+
+  <p id="dailyDateLabel" class="muted">Select a date to see daily summary.</p>
+
+  <div class="daily-grid">
+
+   <div class="daily-box">
+    <small>Total income</small>
+    <strong id="dailyIncome" class="green">৳0.00</strong>
+   </div>
+
+   <div class="daily-box">
+    <small>Total expense</small>
+    <strong id="dailyExpense" class="red">৳0.00</strong>
+   </div>
+
+   <div class="daily-box">
+    <small>Daily balance</small>
+    <strong id="dailyBalance">৳0.00</strong>
+   </div>
+
+  </div>
+ </div>
+
+
+ <!-- TRANSACTIONS -->
+
+ <div class="card">
+  <div class="row space">
+   <h2>Transactions</h2>
+
+   <div class="row">
+    <input id="filterMonth" type="month">
+
+    <select id="filterType">
+     <option value="all">All types</option>
+     <option value="income">Income</option>
+     <option value="expense">Expense</option>
+    </select>
+   </div>
+  </div>
+
+  <p id="transactionFilterLabel" class="muted"></p>
+
+  <div style="overflow-x:auto">
+   <table>
+    <thead>
+     <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Category / Note</th>
+      <th>Amount</th>
+      <th></th>
+     </tr>
+    </thead>
+    <tbody id="transactions"></tbody>
+   </table>
+  </div>
+
+  <p id="empty" class="muted">No transactions yet.</p>
+ </div>
+
+
+ <!-- CATEGORY SUMMARY -->
+
+ <div class="card">
+  <h2>Spending by category</h2>
+  <div id="categorySummary" class="muted">Add expenses to see your category summary.</div>
+ </div>
 
 </section>
-
 </main>
 
 
 <script type="module">
 
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
 
 import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut
+ getAuth,
+ onAuthStateChanged,
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,
+ signOut,
+ sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
 
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  setDoc,
-  getDoc,
-  query,
-  orderBy
+ getFirestore,
+ collection,
+ addDoc,
+ getDocs,
+ deleteDoc,
+ doc,
+ setDoc,
+ getDoc,
+ query,
+ orderBy
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
 
 // FIREBASE CONFIG
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDsooWqRs7UFqoN7cGxT7hTc-ErORqk9GM",
-  authDomain: "fahim-money-manager.firebaseapp.com",
-  projectId: "fahim-money-manager",
-  storageBucket: "fahim-money-manager.firebasestorage.app",
-  messagingSenderId: "826291912070",
-  appId: "1:826291912070:web:5a833b9c9ebe0f973f8007",
-  measurementId: "G-JD2C5WD89R"
+ apiKey: "AIzaSyDsooWqRs7UFqoN7cGxT7hTc-ErORqk9GM",
+ authDomain: "fahim-money-manager.firebaseapp.com",
+ projectId: "fahim-money-manager",
+ storageBucket: "fahim-money-manager.firebasestorage.app",
+ messagingSenderId: "826291912070",
+ appId: "1:826291912070:web:5a833b9c9ebe0f973f8007",
+ measurementId: "G-JD2C5WD89R"
 };
 
 
-// HTML ELEMENTS
+// ELEMENTS
 
 const authBox = document.querySelector("#auth");
 const appBox = document.querySelector("#app");
-
 const authMessage = document.querySelector("#authMessage");
 const formMessage = document.querySelector("#formMessage");
 
@@ -474,6 +315,8 @@ const passwordInput = document.querySelector("#password");
 const loginTab = document.querySelector("#loginTab");
 const signupTab = document.querySelector("#signupTab");
 const authSubmit = document.querySelector("#authSubmit");
+const forgotPassword = document.querySelector("#forgotPassword");
+const forgotRow = document.querySelector("#forgotRow");
 
 const logoutButton = document.querySelector("#logout");
 
@@ -488,15 +331,20 @@ const categorySummary = document.querySelector("#categorySummary");
 const filterMonth = document.querySelector("#filterMonth");
 const filterType = document.querySelector("#filterType");
 
+const dailyDate = document.querySelector("#dailyDate");
+const dailyIncome = document.querySelector("#dailyIncome");
+const dailyExpense = document.querySelector("#dailyExpense");
+const dailyBalance = document.querySelector("#dailyBalance");
+const dailyDateLabel = document.querySelector("#dailyDateLabel");
+const clearDailyDate = document.querySelector("#clearDailyDate");
+const transactionFilterLabel = document.querySelector("#transactionFilterLabel");
+
 const budgetMonth = document.querySelector("#budgetMonth");
 const budgetAmount = document.querySelector("#budgetAmount");
 const budgetStatus = document.querySelector("#budgetStatus");
 
 const transactionForm = document.querySelector("#transactionForm");
 const saveBudgetButton = document.querySelector("#saveBudget");
-
-
-// APP VARIABLES
 
 let auth;
 let db;
@@ -505,551 +353,512 @@ let allTransactions = [];
 let authMode = "login";
 
 const money = n =>
-  new Intl.NumberFormat("en-BD", {
-    style: "currency",
-    currency: "BDT",
-    maximumFractionDigits: 2
-  }).format(n);
+ new Intl.NumberFormat("en-BD", {
+  style:"currency",
+  currency:"BDT",
+  maximumFractionDigits:2
+ }).format(n);
 
-function getLocalDate() {
-  const d = new Date();
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+function getLocalDate(){
+ const d = new Date();
+ const y = d.getFullYear();
+ const m = String(d.getMonth()+1).padStart(2,"0");
+ const day = String(d.getDate()).padStart(2,"0");
+ return `${y}-${m}-${day}`;
 }
 
 const today = getLocalDate();
-const month = today.slice(0, 7);
+const month = today.slice(0,7);
 
 document.querySelector("#date").value = today;
 filterMonth.value = month;
 budgetMonth.value = month;
 
 
-// LOGIN / SIGNUP TABS
+// AUTH TABS
 
-function setAuthMode(mode) {
+function setAuthMode(mode){
 
-  authMode = mode;
+ authMode = mode;
 
-  const isLogin = mode === "login";
+ const isLogin = mode === "login";
 
-  loginTab.classList.toggle("active", isLogin);
-  signupTab.classList.toggle("active", !isLogin);
+ loginTab.classList.toggle("active",isLogin);
+ signupTab.classList.toggle("active",!isLogin);
 
-  authSubmit.textContent = isLogin
-    ? "Log in"
-    : "Create account";
+ authSubmit.textContent = isLogin
+  ? "Log in"
+  : "Create account";
 
-  passwordInput.autocomplete = isLogin
-    ? "current-password"
-    : "new-password";
+ forgotRow.classList.toggle("hidden",!isLogin);
 
-  authMessage.textContent = "";
+ passwordInput.autocomplete = isLogin
+  ? "current-password"
+  : "new-password";
+
+ authMessage.textContent = "";
 }
 
-loginTab.addEventListener("click", () => {
-  setAuthMode("login");
-});
-
-signupTab.addEventListener("click", () => {
-  setAuthMode("signup");
-});
+loginTab.addEventListener("click",()=>setAuthMode("login"));
+signupTab.addEventListener("click",()=>setAuthMode("signup"));
 
 
-// FRIENDLY ERROR MESSAGES
+// ERROR MESSAGES
 
-function friendly(e) {
+function friendly(e){
 
-  const errors = {
-    "auth/invalid-credential":
-      "Email or password is incorrect.",
+ const errors = {
+  "auth/invalid-credential":"Email or password is incorrect.",
+  "auth/email-already-in-use":"This email already has an account.",
+  "auth/invalid-email":"Please enter a valid email address.",
+  "auth/weak-password":"Password must contain at least 6 characters.",
+  "auth/network-request-failed":"Network error. Check your internet connection.",
+  "auth/too-many-requests":"Too many attempts. Please try again later.",
+  "auth/user-not-found":"No account found for this email."
+ };
 
-    "auth/email-already-in-use":
-      "This email already has an account.",
-
-    "auth/invalid-email":
-      "Please enter a valid email address.",
-
-    "auth/weak-password":
-      "Password must contain at least 6 characters.",
-
-    "auth/network-request-failed":
-      "Network error. Please check your internet connection.",
-
-    "auth/too-many-requests":
-      "Too many attempts. Please try again later."
-  };
-
-  return errors[e.code] || e.message;
+ return errors[e.code] || e.message;
 }
 
 
 // FIREBASE INITIALIZATION
 
-try {
+try{
 
-  const app = initializeApp(firebaseConfig);
+ const app = initializeApp(firebaseConfig);
+ auth = getAuth(app);
+ db = getFirestore(app);
 
-  auth = getAuth(app);
-  db = getFirestore(app);
+ onAuthStateChanged(auth,async user=>{
 
-  onAuthStateChanged(auth, async user => {
+  currentUser = user;
 
-    currentUser = user;
+  authBox.classList.toggle("hidden",!!user);
+  appBox.classList.toggle("hidden",!user);
+  logoutButton.classList.toggle("hidden",!user);
 
-    authBox.classList.toggle("hidden", !!user);
-    appBox.classList.toggle("hidden", !user);
+  document.querySelector("#userEmail").textContent =
+   user?.email || "";
 
-    logoutButton.classList.toggle("hidden", !user);
+  if(user){
+   try{
+    await refresh();
+   }catch(e){
+    formMessage.textContent = e.message;
+   }
+  }
 
-    document.querySelector("#userEmail").textContent =
-      user?.email || "";
+ });
 
-    if (user) {
-
-      try {
-        await refresh();
-      } catch (e) {
-        formMessage.textContent = e.message;
-      }
-
-    }
-
-  });
-
-} catch (e) {
-
-  authMessage.textContent = e.message;
-
+}catch(e){
+ authMessage.textContent = e.message;
 }
 
 
-// LOGIN / CREATE ACCOUNT BUTTON
+// LOGIN / CREATE ACCOUNT
 
-authSubmit.addEventListener("click", async () => {
+authSubmit.addEventListener("click",async()=>{
 
-  authMessage.textContent = "";
+ authMessage.textContent = "";
 
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
+ const email = emailInput.value.trim();
+ const password = passwordInput.value;
 
-  if (!email || !password) {
-    authMessage.textContent =
-      "Please enter your email and password.";
-    return;
+ if(!email || !password){
+  authMessage.textContent = "Please enter your email and password.";
+  return;
+ }
+
+ if(authMode === "signup" && password.length < 6){
+  authMessage.textContent = "Password must contain at least 6 characters.";
+  return;
+ }
+
+ authSubmit.disabled = true;
+ authSubmit.textContent = "Please wait...";
+
+ try{
+
+  if(authMode === "login"){
+   await signInWithEmailAndPassword(auth,email,password);
+  }else{
+   await createUserWithEmailAndPassword(auth,email,password);
   }
 
-  if (authMode === "signup" && password.length < 6) {
-    authMessage.textContent =
-      "Password must contain at least 6 characters.";
-    return;
-  }
+ }catch(e){
+  authMessage.textContent = friendly(e);
+ }finally{
+  authSubmit.disabled = false;
+  authSubmit.textContent =
+   authMode === "login" ? "Log in" : "Create account";
+ }
 
-  authSubmit.disabled = true;
-  authSubmit.textContent = "Please wait...";
+});
 
-  try {
 
-    if (authMode === "login") {
+// FORGOT PASSWORD
 
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+forgotPassword.addEventListener("click",async()=>{
 
-    } else {
+ authMessage.textContent = "";
 
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+ const email = emailInput.value.trim();
 
-    }
+ if(!email){
+  authMessage.textContent = "First enter your email address above.";
+  emailInput.focus();
+  return;
+ }
 
-  } catch (e) {
+ if(!emailInput.checkValidity()){
+  authMessage.textContent = "Please enter a valid email address.";
+  emailInput.focus();
+  return;
+ }
 
-    authMessage.textContent = friendly(e);
+ forgotPassword.disabled = true;
+ forgotPassword.textContent = "Sending...";
 
-  } finally {
+ try{
 
-    authSubmit.disabled = false;
+  await sendPasswordResetEmail(auth,email);
 
-    authSubmit.textContent =
-      authMode === "login"
-        ? "Log in"
-        : "Create account";
+  authMessage.textContent =
+   "If an account exists for this email, a password reset link has been sent. Check your inbox and spam folder.";
 
-  }
+ }catch(e){
+
+  authMessage.textContent = friendly(e);
+
+ }finally{
+
+  forgotPassword.disabled = false;
+  forgotPassword.textContent = "Forgot Password?";
+
+ }
 
 });
 
 
 // LOGOUT
 
-logoutButton.addEventListener("click", async () => {
-
-  try {
-    await signOut(auth);
-  } catch (e) {
-    authMessage.textContent = e.message;
-  }
-
+logoutButton.addEventListener("click",async()=>{
+ try{
+  await signOut(auth);
+ }catch(e){
+  authMessage.textContent = e.message;
+ }
 });
 
 
 // USER COLLECTION
 
-function userCollection(name) {
-
-  return collection(
-    db,
-    "users",
-    currentUser.uid,
-    name
-  );
-
+function userCollection(name){
+ return collection(db,"users",currentUser.uid,name);
 }
 
 
-// LOAD TRANSACTIONS
+// REFRESH DATA
 
-async function refresh() {
+async function refresh(){
 
-  const q = query(
-    userCollection("transactions"),
-    orderBy("date", "desc")
-  );
+ const q = query(
+  userCollection("transactions"),
+  orderBy("date","desc")
+ );
 
-  const snap = await getDocs(q);
+ const snap = await getDocs(q);
 
-  allTransactions = snap.docs.map(d => ({
-    id: d.id,
-    ...d.data()
-  }));
+ allTransactions = snap.docs.map(d=>({
+  id:d.id,
+  ...d.data()
+ }));
 
-  render();
-
-  await loadBudget();
-
+ render();
+ renderDailySummary();
+ await loadBudget();
 }
 
 
 // SAVE TRANSACTION
 
-transactionForm.addEventListener("submit", async e => {
+transactionForm.addEventListener("submit",async e=>{
 
-  e.preventDefault();
+ e.preventDefault();
+ formMessage.textContent = "";
 
-  formMessage.textContent = "";
+ const amount = Number(
+  document.querySelector("#amount").value
+ );
 
-  const amount = Number(
-    document.querySelector("#amount").value
-  );
+ if(!Number.isFinite(amount) || amount <= 0){
+  formMessage.textContent = "Enter an amount greater than zero.";
+  return;
+ }
 
-  if (!Number.isFinite(amount) || amount <= 0) {
+ try{
 
-    formMessage.textContent =
-      "Enter an amount greater than zero.";
+  await addDoc(userCollection("transactions"),{
+   type:document.querySelector("#type").value,
+   amount,
+   category:document.querySelector("#category").value,
+   date:document.querySelector("#date").value,
+   note:document.querySelector("#note").value.trim(),
+   createdAt:Date.now()
+  });
 
-    return;
-  }
+  transactionForm.reset();
+  document.querySelector("#date").value = today;
 
-  try {
+  await refresh();
 
-    await addDoc(
-      userCollection("transactions"),
-      {
-        type: document.querySelector("#type").value,
-        amount: amount,
+  formMessage.textContent = "Transaction saved successfully.";
 
-        category:
-          document.querySelector("#category").value,
-
-        date:
-          document.querySelector("#date").value,
-
-        note:
-          document.querySelector("#note").value.trim(),
-
-        createdAt: Date.now()
-      }
-    );
-
-    transactionForm.reset();
-
-    document.querySelector("#date").value = today;
-
-    await refresh();
-
-    formMessage.textContent =
-      "Transaction saved successfully.";
-
-  } catch (err) {
-
-    formMessage.textContent = err.message;
-
-  }
+ }catch(err){
+  formMessage.textContent = err.message;
+ }
 
 });
 
 
-// RENDER DASHBOARD
+// DAILY SUMMARY
 
-function render() {
+function renderDailySummary(){
 
-  const filtered = allTransactions.filter(t =>
+ const selectedDate = dailyDate.value;
 
-    (!filterMonth.value ||
-      t.date.startsWith(filterMonth.value)) &&
+ if(!selectedDate){
 
-    (filterType.value === "all" ||
-      t.type === filterType.value)
+  dailyDateLabel.textContent = "Select a date to see daily summary.";
+  dailyIncome.textContent = money(0);
+  dailyExpense.textContent = money(0);
+  dailyBalance.textContent = money(0);
 
-  );
+  transactionFilterLabel.textContent =
+   "Showing monthly transactions.";
 
-  const incomeTotal = filtered
-    .filter(t => t.type === "income")
-    .reduce((s, t) => s + Number(t.amount), 0);
+  return;
+ }
 
-  const expenseTotal = filtered
-    .filter(t => t.type === "expense")
-    .reduce((s, t) => s + Number(t.amount), 0);
+ const dayTransactions = allTransactions.filter(
+  t => t.date === selectedDate
+ );
 
-  incomeElement.textContent = money(incomeTotal);
-  expenseElement.textContent = money(expenseTotal);
+ const totalIncome = dayTransactions
+  .filter(t=>t.type === "income")
+  .reduce((sum,t)=>sum+Number(t.amount),0);
 
-  balanceElement.textContent =
-    money(incomeTotal - expenseTotal);
+ const totalExpense = dayTransactions
+  .filter(t=>t.type === "expense")
+  .reduce((sum,t)=>sum+Number(t.amount),0);
 
+ const totalBalance = totalIncome-totalExpense;
 
-  // TRANSACTION TABLE
+ dailyIncome.textContent = money(totalIncome);
+ dailyExpense.textContent = money(totalExpense);
+ dailyBalance.textContent = money(totalBalance);
 
-  transactionsElement.innerHTML = filtered.map(t => `
+ dailyBalance.className = totalBalance >= 0
+  ? "green"
+  : "red";
 
-    <tr>
+ dailyDateLabel.textContent =
+  `Daily summary for ${selectedDate}`;
 
-      <td>${escapeHtml(t.date)}</td>
+ transactionFilterLabel.textContent =
+  `Showing transactions for ${selectedDate}`;
 
-      <td class="${t.type === "income" ? "green" : "red"}">
-        ${escapeHtml(t.type)}
-      </td>
-
-      <td>
-        ${escapeHtml(t.category)}
-        ${t.note ? " · " + escapeHtml(t.note) : ""}
-      </td>
-
-      <td>
-        ${t.type === "income" ? "+" : "−"}${money(t.amount)}
-      </td>
-
-      <td>
-        <button
-          class="danger"
-          data-delete="${escapeHtml(t.id)}"
-          type="button"
-        >
-          Delete
-        </button>
-      </td>
-
-    </tr>
-
-  `).join("");
-
-  emptyElement.classList.toggle(
-    "hidden",
-    filtered.length > 0
-  );
+}
 
 
-  // CATEGORY SUMMARY
+// RENDER DASHBOARD AND TRANSACTIONS
 
-  const cats = {};
+function render(){
 
-  filtered
-    .filter(t => t.type === "expense")
-    .forEach(t => {
+ const selectedDate = dailyDate.value;
 
-      cats[t.category] =
-        (cats[t.category] || 0) + Number(t.amount);
+ const filtered = allTransactions.filter(t=>{
 
-    });
+  const matchesDate = selectedDate
+   ? t.date === selectedDate
+   : (!filterMonth.value || t.date.startsWith(filterMonth.value));
 
-  categorySummary.innerHTML =
-    Object.entries(cats)
-      .sort((a, b) => b[1] - a[1])
-      .map(([k, v]) => `
-        <p>
-          ${escapeHtml(k)}
-          <strong>${money(v)}</strong>
-        </p>
-      `)
-      .join("") || "No expenses for this month.";
+  const matchesType =
+   filterType.value === "all" ||
+   t.type === filterType.value;
 
-  updateBudgetStatus();
+  return matchesDate && matchesType;
+
+ });
+
+ const incomeTotal = filtered
+  .filter(t=>t.type === "income")
+  .reduce((s,t)=>s+Number(t.amount),0);
+
+ const expenseTotal = filtered
+  .filter(t=>t.type === "expense")
+  .reduce((s,t)=>s+Number(t.amount),0);
+
+ incomeElement.textContent = money(incomeTotal);
+ expenseElement.textContent = money(expenseTotal);
+ balanceElement.textContent = money(incomeTotal-expenseTotal);
+
+ transactionsElement.innerHTML = filtered.map(t=>`
+
+  <tr>
+   <td>${escapeHtml(t.date)}</td>
+   <td class="${t.type==="income"?"green":"red"}">${escapeHtml(t.type)}</td>
+   <td>${escapeHtml(t.category)}${t.note?" · "+escapeHtml(t.note):""}</td>
+   <td>${t.type==="income"?"+":"−"}${money(t.amount)}</td>
+   <td>
+    <button class="danger" data-delete="${escapeHtml(t.id)}" type="button">
+     Delete
+    </button>
+   </td>
+  </tr>
+
+ `).join("");
+
+ emptyElement.classList.toggle("hidden",filtered.length>0);
+
+ const cats = {};
+
+ filtered.filter(t=>t.type==="expense").forEach(t=>{
+  cats[t.category] = (cats[t.category]||0)+Number(t.amount);
+ });
+
+ categorySummary.innerHTML =
+  Object.entries(cats)
+   .sort((a,b)=>b[1]-a[1])
+   .map(([k,v])=>`<p>${escapeHtml(k)} <strong>${money(v)}</strong></p>`)
+   .join("") || "No expenses for this selection.";
 
 }
 
 
 // HTML SECURITY
 
-function escapeHtml(s) {
-
-  return String(s ?? "").replace(
-    /[&<>"']/g,
-    c => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[c])
-  );
-
+function escapeHtml(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
 }
 
 
 // DELETE TRANSACTION
 
-transactionsElement.addEventListener("click", async e => {
+transactionsElement.addEventListener("click",async e=>{
 
-  const id = e.target.dataset.delete;
+ const id = e.target.dataset.delete;
+ if(!id) return;
 
-  if (!id) return;
+ if(!confirm("Delete this transaction?")) return;
 
-  if (!confirm("Delete this transaction?")) return;
-
-  try {
-
-    await deleteDoc(
-      doc(
-        db,
-        "users",
-        currentUser.uid,
-        "transactions",
-        id
-      )
-    );
-
-    await refresh();
-
-  } catch (err) {
-
-    formMessage.textContent = err.message;
-
-  }
+ try{
+  await deleteDoc(
+   doc(db,"users",currentUser.uid,"transactions",id)
+  );
+  await refresh();
+ }catch(err){
+  formMessage.textContent = err.message;
+ }
 
 });
 
 
 // FILTERS
 
-filterMonth.addEventListener("change", render);
-filterType.addEventListener("change", render);
+filterMonth.addEventListener("change",render);
+filterType.addEventListener("change",render);
+
+dailyDate.addEventListener("change",()=>{
+ renderDailySummary();
+ render();
+});
+
+clearDailyDate.addEventListener("click",()=>{
+ dailyDate.value = "";
+ renderDailySummary();
+ render();
+});
 
 
 // LOAD BUDGET
 
-async function loadBudget() {
+async function loadBudget(){
 
-  const m = budgetMonth.value || month;
+ const m = budgetMonth.value || month;
 
-  const ref = doc(
-    db,
-    "users",
-    currentUser.uid,
-    "budgets",
-    m
-  );
+ const ref = doc(
+  db,
+  "users",
+  currentUser.uid,
+  "budgets",
+  m
+ );
 
-  const snap = await getDoc(ref);
+ const snap = await getDoc(ref);
 
-  budgetAmount.value =
-    snap.exists() ? snap.data().limit : "";
+ budgetAmount.value = snap.exists()
+  ? snap.data().limit
+  : "";
 
-  updateBudgetStatus();
-
+ updateBudgetStatus();
 }
 
 
-// UPDATE BUDGET STATUS
+// UPDATE BUDGET
 
-function updateBudgetStatus() {
+function updateBudgetStatus(){
 
-  const m = budgetMonth.value || month;
+ const m = budgetMonth.value || month;
+ const limit = Number(budgetAmount.value);
 
-  const limit = Number(budgetAmount.value);
+ const spent = allTransactions
+  .filter(t=>t.type==="expense" && t.date.startsWith(m))
+  .reduce((s,t)=>s+Number(t.amount),0);
 
-  const spent = allTransactions
-    .filter(t =>
-      t.type === "expense" &&
-      t.date.startsWith(m)
-    )
-    .reduce((s, t) => s + Number(t.amount), 0);
-
-  budgetStatus.textContent = limit > 0
-
-    ? `Spent ${money(spent)} of ${money(limit)} · ${money(Math.max(0, limit - spent))} remaining`
-
-    : "Set a budget to track your spending.";
+ budgetStatus.textContent = limit > 0
+  ? `Spent ${money(spent)} of ${money(limit)} · ${money(Math.max(0,limit-spent))} remaining`
+  : "Set a budget to track your spending.";
 
 }
 
 
 // SAVE BUDGET
 
-saveBudgetButton.addEventListener("click", async () => {
+saveBudgetButton.addEventListener("click",async()=>{
 
-  const limit = Number(budgetAmount.value);
-  const m = budgetMonth.value;
+ const limit = Number(budgetAmount.value);
+ const m = budgetMonth.value;
 
-  if (!m || !Number.isFinite(limit) || limit <= 0) {
+ if(!m || !Number.isFinite(limit) || limit <= 0){
+  budgetStatus.textContent = "Enter a valid monthly budget.";
+  return;
+ }
 
-    budgetStatus.textContent =
-      "Enter a valid monthly budget.";
+ try{
 
-    return;
-  }
+  await setDoc(
+   doc(db,"users",currentUser.uid,"budgets",m),
+   {limit,updatedAt:Date.now()}
+  );
 
-  try {
+  updateBudgetStatus();
+  budgetStatus.textContent += " · Budget saved.";
 
-    await setDoc(
-      doc(
-        db,
-        "users",
-        currentUser.uid,
-        "budgets",
-        m
-      ),
-      {
-        limit: limit,
-        updatedAt: Date.now()
-      }
-    );
-
-    updateBudgetStatus();
-
-    budgetStatus.textContent += " · Budget saved.";
-
-  } catch (e) {
-
-    budgetStatus.textContent = e.message;
-
-  }
+ }catch(e){
+  budgetStatus.textContent = e.message;
+ }
 
 });
 
-
-// CHANGE BUDGET MONTH
-
-budgetMonth.addEventListener("change", loadBudget);
+budgetMonth.addEventListener("change",loadBudget);
 
 </script>
-
 </body>
 </html>
