@@ -65,15 +65,16 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWith
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
 // Replace these placeholder values with your Firebase Web App configuration.
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDsooWqRs7UFqoN7cGxT7hTc-ErORqk9GM",
+  authDomain: "fahim-money-manager.firebaseapp.com",
+  projectId: "fahim-money-manager",
+  storageBucket: "fahim-money-manager.firebasestorage.app",
+  messagingSenderId: "826291912070",
+  appId: "1:826291912070:web:5a833b9c9ebe0f973f8007",
+  measurementId: "G-JD2C5WD89R"
 };
-
 const authBox=document.querySelector("#auth"), appBox=document.querySelector("#app");
 const authMessage=document.querySelector("#authMessage"), formMessage=document.querySelector("#formMessage");
 let auth,db,currentUser=null,allTransactions=[];
