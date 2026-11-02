@@ -1,53 +1,56 @@
+
 <!doctype html>
 <html lang="bn">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Fahim — Personal</title>
+
   <style>
     :root{
-      --bg1: #0f172a;
-      --bg2: #0b1220;
-      --card: rgba(255,255,255,0.06);
-      --accent: linear-gradient(135deg,#7c3aed,#06b6d4);
-      --glass: rgba(255,255,255,0.04);
-      --text: #e6eef8;
-      --muted: rgba(230,238,248,0.65);
+      --bg1:#0f172a;
+      --bg2:#0b1220;
+      --card:rgba(255,255,255,0.06);
+      --accent:linear-gradient(135deg,#7c3aed,#06b6d4);
+      --text:#e6eef8;
+      --muted:rgba(230,238,248,0.65);
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{min-height:100%}
+
     body{
       margin:0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.15), transparent),
-                  radial-gradient(900px 400px at 90% 90%, rgba(6,182,212,0.10), transparent),
-                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+      background:
+        radial-gradient(1200px 600px at 10% 10%,rgba(124,58,237,0.15),transparent),
+        radial-gradient(900px 400px at 90% 90%,rgba(6,182,212,0.10),transparent),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
       color:var(--text);
       -webkit-font-smoothing:antialiased;
-      padding:32px;
-      padding-top:100px; 
+      padding:100px 24px 40px;
       display:flex;
       align-items:center;
       justify-content:center;
       min-height:100vh;
     }
 
-    /* TOP NAV */
     .top-nav{
       position:fixed;
-      top:0; left:0;
+      top:0;
+      left:0;
       width:100%;
       height:60px;
       display:flex;
       justify-content:flex-end;
       align-items:center;
       padding:0 25px;
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(6px);
+      background:rgba(255,255,255,0.03);
+      backdrop-filter:blur(6px);
       border-bottom:1px solid rgba(255,255,255,0.05);
       z-index:1000;
     }
+
     .login-btn{
       padding:10px 18px;
       border-radius:12px;
@@ -56,24 +59,32 @@
       font-size:14px;
       border:1px solid rgba(255,255,255,0.10);
       background:rgba(255,255,255,0.05);
-      backdrop-filter:blur(6px);
       color:#e6eef8;
       transition:0.2s;
     }
-    .login-btn:hover{ transform:translateY(-2px); }
+
+    .login-btn:hover{transform:translateY(-2px)}
+
+    /* Main layout */
+    .page-content{
+      width:100%;
+      max-width:920px;
+      display:flex;
+      flex-direction:column;
+      gap:22px;
+    }
 
     .card{
       width:100%;
-      max-width:920px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01));
       border-radius:18px;
       padding:28px;
       display:flex;
       gap:28px;
       align-items:center;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      border: 1px solid rgba(255,255,255,0.04);
-      backdrop-filter: blur(6px);
+      box-shadow:0 10px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.06);
+      backdrop-filter:blur(6px);
     }
 
     .left{
@@ -82,42 +93,40 @@
       align-items:center;
       justify-content:center;
     }
+
     .avatar{
       width:200px;
       height:200px;
       border-radius:50%;
       overflow:hidden;
       display:block;
-      box-shadow: 0 12px 30px rgba(12,18,40,0.6), inset 0 -6px 20px rgba(0,0,0,0.35);
+      box-shadow:0 12px 30px rgba(12,18,40,0.6);
       border:6px solid transparent;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
       position:relative;
-      transition: .5s;
+      transition:.5s;
+      margin:0;
     }
+
     .avatar img{
       width:100%;
       height:100%;
       object-fit:cover;
       transition:.8s;
     }
+
     .avatar:hover img{
       transform:scale(1.05) rotate(-1deg);
     }
 
-    .avatar::after{
-      content:"";
-      position:absolute;
-      left:-8px; top:-8px; right:-8px; bottom:-8px;
-      border-radius:50%;
-      background: conic-gradient(from 120deg, rgba(124,58,237,0.3), rgba(6,182,212,0.3));
-      filter:blur(10px);
-      opacity:0.8;
-      z-index:-1;
-    }
+    .info{flex:1;min-width:0}
 
-    .info{ flex:1; }
-    h1{ margin:0 0 8px 0; font-size:28px; }
-    .role{ color:var(--muted); margin-bottom:18px; }
+    h1{margin:0 0 8px;font-size:28px}
+
+    .role{
+      color:var(--muted);
+      margin-bottom:18px;
+    }
 
     p.bio{
       color:var(--muted);
@@ -131,6 +140,7 @@
       flex-wrap:wrap;
       margin-bottom:16px;
     }
+
     .btn{
       display:flex;
       align-items:center;
@@ -140,66 +150,231 @@
       font-weight:600;
       font-size:14px;
       border:1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02);
+      background:rgba(255,255,255,0.02);
       color:var(--text);
+      transition:.2s;
     }
+
+    .btn:hover{transform:translateY(-2px)}
+
     .btn-primary{
-      background: var(--accent);
+      background:var(--accent);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
-    .btn-outline{
-      color:var(--muted);
-    }
+
+    .btn-outline{color:var(--muted)}
 
     .meta{
       display:flex;
       gap:18px;
       flex-wrap:wrap;
       color:var(--muted);
+      font-size:14px;
+    }
+
+    /* Money Manager feature card */
+    .money-card{
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:22px;
+      padding:26px 30px;
+      border-radius:20px;
+      border:1px solid rgba(45,212,191,0.25);
+      background:
+        radial-gradient(circle at 90% 10%,rgba(6,182,212,0.20),transparent 35%),
+        linear-gradient(120deg,rgba(30,41,59,0.95),rgba(15,23,42,0.98));
+      box-shadow:0 12px 35px rgba(0,0,0,0.25);
+      transition:.25s;
+    }
+
+    .money-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(45,212,191,0.55);
+      box-shadow:0 16px 40px rgba(6,182,212,0.10);
+    }
+
+    .money-info{
+      flex:1;
+      min-width:0;
+    }
+
+    .app-label{
+      display:inline-block;
+      padding:6px 11px;
+      border-radius:30px;
+      background:rgba(45,212,191,0.12);
+      border:1px solid rgba(45,212,191,0.25);
+      color:#5eead4;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:1px;
+      margin-bottom:12px;
+    }
+
+    .money-title{
+      font-size:24px;
+      font-weight:800;
+      margin:0 0 9px;
+      color:#fff;
+    }
+
+    .money-description{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+      margin:0;
+      max-width:540px;
+    }
+
+    .money-action{
+      flex-shrink:0;
+    }
+
+    .money-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:15px 22px;
+      border-radius:13px;
+      background:linear-gradient(135deg,#0d9488,#06b6d4);
+      color:#fff;
+      text-decoration:none;
+      font-size:15px;
+      font-weight:800;
+      box-shadow:0 7px 20px rgba(6,182,212,0.20);
+      transition:.25s;
+      white-space:nowrap;
+    }
+
+    .money-button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 25px rgba(6,182,212,0.35);
+    }
+
+    .money-icon{
+      width:58px;
+      height:58px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:17px;
+      background:rgba(45,212,191,0.12);
+      border:1px solid rgba(45,212,191,0.22);
+      font-size:29px;
+      margin-bottom:15px;
     }
 
     @media(max-width:720px){
-      .card{flex-direction:column; text-align:center;}
-      .avatar{width:150px;height:150px;}
+      body{padding:85px 15px 30px}
+
+      .card{
+        flex-direction:column;
+        text-align:center;
+        padding:24px 18px;
+      }
+
+      .avatar{width:150px;height:150px}
+
+      .actions,.meta{justify-content:center}
+
+      .money-card{
+        flex-direction:column;
+        text-align:center;
+        padding:25px 18px;
+      }
+
+      .money-icon{margin:0 auto 15px}
+
+      .money-title{font-size:22px}
+
+      .money-button{
+        width:100%;
+        min-width:220px;
+      }
+
+      .money-action{width:100%}
     }
   </style>
 </head>
+
 <body>
 
-  <!-- ⭐ TOP LOGIN BUTTON ⭐ -->
   <div class="top-nav">
     <a href="admin login.html" class="login-btn">Login</a>
   </div>
 
-  <main class="card">
-    <div class="left">
-      <figure class="avatar">
-        <img src="Picsart_24-09-22_19-23-03-374_Original.jpeg" alt="Fahim Hossain" />
-      </figure>
-    </div>
+  <div class="page-content">
 
-    <section class="info">
-      <h1>Fahim Hossain</h1>
-      <div class="role">Student · Computer Programmer · IT Learner</div>
+    <!-- Profile Card -->
+    <main class="card">
 
-      <p class="bio">
-        Assalamu alaikum — I am Fahim Hossain, this is my personal website, here you will see some of my important information And if you feel like logging in, you can find out more information after logging in. 
-      </p>
-
-      <div class="actions">
-        <a class="btn btn-primary" href="mailto:mdfahim25863@gmail.com">✉ Email</a>
-        <a class="btn btn-outline" href="https://www.tiktok.com/@fahimhossan1.0">Tiktok</a>
-        <a class="btn btn-outline" href="https://www.facebook.com/fahim5863">🔗Facbook</a>
+      <div class="left">
+        <figure class="avatar">
+          <img src="Picsart_24-09-22_19-23-03-374_Original.jpeg"
+               alt="Fahim Hossain" />
+        </figure>
       </div>
 
-      <div class="meta">
-        <div>🏠 Dhaka</div>
-        <div>📚 college / University</div>
-        <div>💬 Bangla / English / Hindi</div>
+      <section class="info">
+        <h1>Fahim Hossain</h1>
+
+        <div class="role">
+          Student · Computer Programmer · IT Learner
+        </div>
+
+        <p class="bio">
+          Assalamu alaikum — I am Fahim Hossain, this is my personal website,
+          here you will see some of my important information And if you feel
+          like logging in, you can find out more information after logging in.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:mdfahim25863@gmail.com">✉ Email</a>
+          <a class="btn btn-outline" href="https://www.tiktok.com/@fahimhossan1.0">TikTok</a>
+          <a class="btn btn-outline" href="https://www.facebook.com/fahim5863">🔗 Facebook</a>
+        </div>
+
+        <div class="meta">
+          <div>🏠 Dhaka</div>
+          <div>📚 college / University</div>
+          <div>💬 Bangla / English / Hindi</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Money Manager App Card -->
+    <section class="money-card">
+
+      <div class="money-info">
+
+        <div class="money-icon">💰</div>
+
+        <span class="app-label">OUR OWN WEB APP</span>
+
+        <h2 class="money-title">Fahim Money Manager</h2>
+
+        <p class="money-description">
+          Manage your income, expenses and monthly budget in one place.
+          Track your money easily with our personal money management app.
+        </p>
+
       </div>
+
+      <div class="money-action">
+        <a class="money-button" href="money.html">
+          Explore App <span>→</span>
+        </a>
+      </div>
+
     </section>
-  </main>
+
+  </div>
 
 </body>
 </html>
