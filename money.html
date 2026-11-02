@@ -1,1 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fahim Money Manager</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--line:#26344c;--text:#eef4ff;--muted:#9aabc4;--green:#38d39f;--red:#ff7185;--blue:#72a7ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,Arial,sans-serif}
+header{padding:20px max(18px,calc((100% - 1100px)/2));border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+h1{font-size:22px;margin:0}main{max-width:1100px;margin:24px auto;padding:0 16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.stat small,.muted{color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:7px}
+input,select,button{font:inherit;border-radius:10px;padding:11px 12px;border:1px solid var(--line);background:#0d1728;color:var(--text);max-width:100%}
+button{background:#2766ce;border:0;font-weight:650;cursor:pointer}button.secondary{background:#26344c}button.danger{background:#963b4b}
+form .fields{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}form button{grid-column:1/-1}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row.space{justify-content:space-between}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
+#auth{max-width:440px;margin:50px auto}#auth input{width:100%;margin:6px 0}#auth button{width:100%;margin-top:8px}
+.hidden{display:none!important}.green{color:var(--green)}.red{color:var(--red)}.notice{color:#ffd78a;line-height:1.5}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.fields,form .fields{grid-template-columns:1fr 1fr}header{align-items:flex-start;flex-direction:column}table{font-size:13px}th,td{padding:9px 5px}}
+</style>
+</head>
+<body>
+<header><h1>💰 Fahim Money Manager</h1><div class="row"><span id="userEmail" class="muted"></span><button id="logout" class="secondary hidden">Log out</button></div></header>
+<main>
+<section id="auth" class="card">
+<h2>Welcome</h2><p class="muted">Sign in or create your account to manage your money.</p>
+<input id="email" type="email" placeholder="Email address" autocomplete="email">
+<input id="password" type="password" placeholder="Password (at least 6 characters)" autocomplete="current-password">
+<div class="row"><button id="login">Log in</button><button id="signup" class="secondary">Create account</button></div>
+<p id="authMessage" class="notice"></p>
+</section>
+<section id="app" class="hidden">
+<div class="grid">
+<div class="card stat"><small>Total income</small><strong id="income" class="green">$0.00</strong></div>
+<div class="card stat"><small>Total expenses</small><strong id="expense" class="red">$0.00</strong></div>
+<div class="card stat"><small>Current balance</small><strong id="balance">$0.00</strong></div>
+</div>
+<div class="card">
+<h2>Add transaction</h2>
+<form id="transactionForm"><div class="fields">
+<select id="type"><option value="expense">Expense</option><option value="income">Income</option></select>
+<input id="amount" type="number" min="0.01" step="0.01" placeholder="Amount" required>
+<select id="category"><option>Food</option><option>Transport</option><option>Shopping</option><option>Bills</option><option>Education</option><option>Health</option><option>Salary</option><option>Business</option><option>Other</option></select>
+<input id="date" type="date" required>
+<input id="note" type="text" placeholder="Note (optional)">
+<button type="submit">Save transaction</button>
+</div></form><p id="formMessage" class="notice"></p>
+</div>
+<div class="card">
+<div class="row space"><h2>Monthly budget</h2><input id="budgetMonth" type="month"></div>
+<div class="row"><input id="budgetAmount" type="number" min="0" step="0.01" placeholder="Set monthly expense limit"><button id="saveBudget">Save budget</button></div>
+<p id="budgetStatus" class="muted">Set a budget to track your spending.</p>
+</div>
+<div class="card">
+<div class="row space"><h2>Transactions</h2><div class="row"><input id="filterMonth" type="month"><select id="filterType"><option value="all">All types</option><option value="income">Income</option><option value="expense">Expense</option></select></div></div>
+<div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Type</th><th>Category / Note</th><th>Amount</th><th></th></tr></thead><tbody id="transactions"></tbody></table></div>
+<p id="empty" class="muted">No transactions yet.</p>
+</div>
+<div class="card"><h2>Spending by category</h2><div id="categorySummary" class="muted">Add expenses to see your category summary.</div></div>
+</section>
+</main>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
+// Replace these placeholder values with your Firebase Web App configuration.
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const authBox=document.querySelector("#auth"), appBox=document.querySelector("#app");
+const authMessage=document.querySelector("#authMessage"), formMessage=document.querySelector("#formMessage");
+let auth,db,currentUser=null,allTransactions=[];
+const money=n=>new Intl.NumberFormat(undefined,{style:"currency",currency:"BDT",maximumFractionDigits:2}).format(n);
+const today=new Date().toISOString().slice(0,10), month=today.slice(0,7);
+document.querySelector("#date").value=today;
+document.querySelector("#filterMonth").value=month;
+document.querySelector("#budgetMonth").value=month;
+
+try {
+  if(firebaseConfig.apiKey==="YOUR_API_KEY") throw new Error("Add your Firebase web config in the code before using the app.");
+  const app=initializeApp(firebaseConfig); auth=getAuth(app); db=getFirestore(app);
+  onAuthStateChanged(auth,async user=>{
+    currentUser=user; authBox.classList.toggle("hidden",!!user); appBox.classList.toggle("hidden",!user);
+    document.querySelector("#logout").classList.toggle("hidden",!user);
+    document.querySelector("#userEmail").textContent=user?.email||"";
+    if(user) await refresh();
+  });
+} catch(e) { authMessage.textContent=e.message; }
+
+document.querySelector("#login").onclick=async()=>{
+ try{await signInWithEmailAndPassword(auth,email.value.trim(),password.value);}
+ catch(e){authMessage.textContent=friendly(e);}
+};
+document.querySelector("#signup").onclick=async()=>{
+ try{await createUserWithEmailAndPassword(auth,email.value.trim(),password.value);}
+ catch(e){authMessage.textContent=friendly(e);}
+};
+document.querySelector("#logout").onclick=()=>signOut(auth);
+function friendly(e){return e.code==="auth/invalid-credential"?"Email or password is incorrect.":e.code==="auth/email-already-in-use"?"This email already has an account.":e.message;}
+function userCollection(name){return collection(db,"users",currentUser.uid,name);}
+async function refresh(){
+ const q=query(userCollection("transactions"),orderBy("date","desc"));
+ const snap=await getDocs(q); allTransactions=snap.docs.map(d=>({id:d.id,...d.data()}));
+ render(); await loadBudget();
+}
+document.querySelector("#transactionForm").onsubmit=async e=>{
+ e.preventDefault(); formMessage.textContent="";
+ const amount=Number(document.querySelector("#amount").value);
+ if(!Number.isFinite(amount)||amount<=0){formMessage.textContent="Enter an amount greater than zero.";return;}
+ try{
+  await addDoc(userCollection("transactions"),{
+   type:document.querySelector("#type").value,amount,
+   category:document.querySelector("#category").value,
+   date:document.querySelector("#date").value,
+   note:document.querySelector("#note").value.trim(),createdAt:Date.now()
+  });
+  e.target.reset();document.querySelector("#date").value=today;
+  await refresh();formMessage.textContent="Transaction saved.";
+ }catch(err){formMessage.textContent=err.message;}
+};
+function render(){
+ const filtered=allTransactions.filter(t=>(!filterMonth.value||t.date.startsWith(filterMonth.value))&&(filterType.value==="all"||t.type===filterType.value));
+ const incomeTotal=filtered.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
+ const expenseTotal=filtered.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
+ income.textContent=money(incomeTotal);expense.textContent=money(expenseTotal);balance.textContent=money(incomeTotal-expenseTotal);
+ transactions.innerHTML=filtered.map(t=>`<tr><td>${escapeHtml(t.date)}</td><td class="${t.type==="income"?"green":"red"}">${escapeHtml(t.type)}</td><td>${escapeHtml(t.category)}${t.note?" · "+escapeHtml(t.note):""}</td><td>${t.type==="income"?"+":"−"}${money(t.amount)}</td><td><button class="danger" data-delete="${t.id}">Delete</button></td></tr>`).join("");
+ empty.classList.toggle("hidden",filtered.length>0);
+ const cats={};filtered.filter(t=>t.type==="expense").forEach(t=>cats[t.category]=(cats[t.category]||0)+t.amount);
+ categorySummary.innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<p>${escapeHtml(k)} <strong>${money(v)}</strong></p>`).join("")||"No expenses for this month.";
+}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+transactions.onclick=async e=>{
+ const id=e.target.dataset.delete;if(!id)return;
+ if(!confirm("Delete this transaction?"))return;
+ await deleteDoc(doc(db,"users",currentUser.uid,"transactions",id));await refresh();
+};
+filterMonth.onchange=render;filterType.onchange=render;
+async function loadBudget(){
+ const m=budgetMonth.value||month,ref=doc(db,"users",currentUser.uid,"budgets",m),snap=await getDoc(ref);
+ budgetAmount.value=snap.exists()?snap.data().limit:"";
+ updateBudgetStatus();
+}
+async function updateBudgetStatus(){
+ const m=budgetMonth.value||month,limit=Number(budgetAmount.value);
+ const spent=allTransactions.filter(t=>t.type==="expense"&&t.date.startsWith(m)).reduce((s,t)=>s+t.amount,0);
+ budgetStatus.textContent=limit>0?`Spent ${money(spent)} of ${money(limit)} · ${money(Math.max(0,limit-spent))} remaining`:"Set a budget to track your spending.";
+}
+saveBudget.onclick=async()=>{
+ const limit=Number(budgetAmount.value),m=budgetMonth.value;
+ if(!m||!Number.isFinite(limit)||limit<=0){budgetStatus.textContent="Enter a valid monthly budget.";return;}
+ await setDoc(doc(db,"users",currentUser.uid,"budgets",m),{limit,updatedAt:Date.now()});
+ updateBudgetStatus();
+};
+budgetMonth.onchange=loadBudget;
+</script>
+</body></html>
