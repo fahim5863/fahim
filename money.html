@@ -826,6 +826,18 @@ authSubmit.addEventListener("click",async()=>{
 });
 
 
+// ENTER KEY SUPPORT FOR LOGIN AND CREATE ACCOUNT
+passwordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+
+    if (!authSubmit.disabled) {
+      authSubmit.click();
+    }
+  }
+});
+
+
 // FORGOT PASSWORD
 
 forgotPassword.addEventListener("click",async()=>{
