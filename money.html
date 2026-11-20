@@ -15,7 +15,11 @@
  --muted:#9aabc4;
  --green:#38d39f;
  --red:#ff7185;
- --blue:#72a7ff
+ --blue:#72a7ff;
+ --header-bg:var(--bg);
+ --input-bg:#0d1728;
+ --daily-bg:#0d1728;
+ --danger-bg:#963b4b
 }
 
 *{
@@ -278,6 +282,39 @@ th{
  min-width:160px;
 }
 
+
+/* PROFILE, THEME AND BUDGET PROGRESS */
+.header-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.profile-area{display:flex;align-items:center;gap:10px;min-width:0}
+.profile-copy{display:flex;flex-direction:column;min-width:0;gap:2px}
+.profile-name{font-size:16px;font-weight:750;line-height:1.2;overflow-wrap:anywhere}
+.profile-email{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.avatar-button{width:44px;height:44px;padding:0;border-radius:50%;overflow:hidden;background:#26344c;border:2px solid var(--line);display:grid;place-items:center;flex:none}
+.avatar-button img{width:100%;height:100%;object-fit:cover}
+.avatar-fallback{font-weight:800;font-size:17px}
+.icon-button{width:40px;height:40px;border-radius:50%;padding:0;display:grid;place-items:center;background:var(--panel);border:1px solid var(--line);font-size:19px}
+.profile-edit{padding:7px 10px;font-size:12px}
+.budget-progress-wrap{margin-top:13px}
+.budget-progress-track{height:11px;width:100%;background:var(--line);border-radius:99px;overflow:hidden}
+.budget-progress-fill{height:100%;width:0;background:var(--green);border-radius:99px;transition:width .25s ease,background .25s ease}
+.budget-progress-meta{display:flex;justify-content:space-between;gap:8px;margin-top:7px;font-size:12px;color:var(--muted)}
+.budget-warning{display:none;padding:12px 14px;border-radius:12px;margin:0 0 16px;background:#6f202b;color:#fff;border:1px solid #ff7185;font-weight:700}
+body.budget-exceeded{--bg:#260d13;--panel:#3b111b;--line:#71303d;--text:#fff0f2;--muted:#f0b8c0;--input-bg:#2d1018;--daily-bg:#2d1018;--blue:#ff9aaa;--green:#ffb3a7;--red:#ff7185}
+body.budget-exceeded .budget-progress-fill{background:#ff7185}
+body.light-mode{--bg:#f3f6fb;--panel:#ffffff;--line:#d8e0ec;--text:#182338;--muted:#64748b;--input-bg:#f8fafc;--daily-bg:#f8fafc;--blue:#2766ce;--green:#13865e;--red:#d43f58;--danger-bg:#963b4b}
+body.light-mode input,body.light-mode select{background:var(--input-bg);color:var(--text)}
+body.light-mode .auth-tabs{background:var(--input-bg)}
+body.light-mode .daily-box{background:var(--daily-bg)}
+/* Budget warning takes priority over either saved theme */
+body.budget-exceeded,body.budget-exceeded.light-mode{--bg:#260d13;--panel:#3b111b;--line:#71303d;--text:#fff0f2;--muted:#f0b8c0;--input-bg:#2d1018;--daily-bg:#2d1018;--blue:#ff9aaa;--green:#ffb3a7;--red:#ff7185}
+.statement-button{width:100%;padding:16px;font-size:17px;letter-spacing:.2px}
+@media(max-width:720px){
+ .header-actions{width:100%;justify-content:space-between}
+ .profile-area{flex:1}
+ .profile-name{font-size:15px}
+ .profile-email{font-size:11px}
+}
+
 @media(max-width:720px){
 
  main{
@@ -346,8 +383,20 @@ th{
 
 <header>
  <h1>💰 FH MONEY MANAGER</h1>
- <div class="row">
-  <span id="userEmail" class="muted"></span>
+ <div class="header-actions">
+  <div id="profileArea" class="profile-area hidden">
+   <button type="button" id="avatarButton" class="avatar-button" title="Change profile picture">
+    <span id="avatarFallback" class="avatar-fallback">U</span>
+    <img id="profileImage" class="hidden" alt="Profile picture">
+   </button>
+   <div class="profile-copy">
+    <span id="profileName" class="profile-name">User</span>
+    <span id="userEmail" class="profile-email"></span>
+    <button type="button" id="editProfile" class="secondary profile-edit">Edit profile</button>
+   </div>
+   <input id="profilePhotoInput" type="file" accept="image/*" class="hidden">
+  </div>
+  <button type="button" id="themeToggle" class="icon-button" title="Switch to light mode" aria-label="Switch theme">☀️</button>
   <button id="logout" class="secondary hidden">Log out</button>
  </div>
 </header>
@@ -387,6 +436,8 @@ th{
 
 <section id="app" class="hidden">
 
+ <div id="budgetWarning" class="budget-warning" role="alert">⚠️ Monthly budget exceeded! Your spending has crossed the limit.</div>
+
  <div class="grid">
 
   <div class="card stat">
@@ -402,6 +453,10 @@ th{
   <div class="card stat">
    <small>Current balance</small>
    <strong id="balance">৳0.00</strong>
+   <div class="budget-progress-wrap">
+    <div class="budget-progress-track"><div id="budgetProgressFill" class="budget-progress-fill"></div></div>
+    <div class="budget-progress-meta"><span id="budgetProgressText">Set monthly budget to track your limit</span><span id="budgetPercent">—</span></div>
+   </div>
   </div>
 
  </div>
@@ -465,6 +520,7 @@ th{
   <div class="row">
    <input id="budgetAmount" type="number" min="0" step="0.01" placeholder="Set monthly expense limit">
    <button id="saveBudget" type="button">Save budget</button>
+   <button id="cancelBudget" type="button" class="danger">Cancel budget</button>
   </div>
 
   <p id="budgetStatus" class="muted">Set a budget to track your spending.</p>
@@ -506,6 +562,11 @@ th{
 
   </div>
 
+ </div>
+
+ <!-- STATEMENT DOWNLOAD: detailed report will be built in statement.html -->
+ <div class="card">
+  <button type="button" id="statementDownload" class="statement-button">⬇ Statement Download</button>
  </div>
 
 
@@ -580,7 +641,8 @@ import {
  createUserWithEmailAndPassword,
  signInWithEmailAndPassword,
  signOut,
- sendPasswordResetEmail
+ sendPasswordResetEmail,
+ updateProfile
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
 
 import {
@@ -595,6 +657,7 @@ import {
  query,
  orderBy
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
 
 
 // FIREBASE CONFIG - ORIGINAL PROJECT
@@ -627,6 +690,20 @@ const forgotPassword = document.querySelector("#forgotPassword");
 const forgotRow = document.querySelector("#forgotRow");
 
 const logoutButton = document.querySelector("#logout");
+const profileArea = document.querySelector("#profileArea");
+const profileNameElement = document.querySelector("#profileName");
+const profileImage = document.querySelector("#profileImage");
+const avatarFallback = document.querySelector("#avatarFallback");
+const avatarButton = document.querySelector("#avatarButton");
+const editProfileButton = document.querySelector("#editProfile");
+const profilePhotoInput = document.querySelector("#profilePhotoInput");
+const themeToggle = document.querySelector("#themeToggle");
+const budgetProgressFill = document.querySelector("#budgetProgressFill");
+const budgetProgressText = document.querySelector("#budgetProgressText");
+const budgetPercent = document.querySelector("#budgetPercent");
+const budgetWarning = document.querySelector("#budgetWarning");
+const cancelBudgetButton = document.querySelector("#cancelBudget");
+const statementDownloadButton = document.querySelector("#statementDownload");
 
 const incomeElement = document.querySelector("#income");
 const expenseElement = document.querySelector("#expense");
@@ -657,6 +734,7 @@ const saveBudgetButton = document.querySelector("#saveBudget");
 let auth;
 let db;
 let currentUser = null;
+let currentBudgetLimit = 0;
 let allTransactions = [];
 let authMode = "login";
 
@@ -691,6 +769,20 @@ document.querySelector("#date").value = today;
 filterMonth.value = month;
 budgetMonth.value = month;
 
+
+// THEME TOGGLE (dark is the default)
+function applyTheme(){
+ const light = localStorage.getItem("fhmm-theme") === "light";
+ document.body.classList.toggle("light-mode",light);
+ themeToggle.textContent = light ? "🌙" : "☀️";
+ themeToggle.title = light ? "Switch to dark mode" : "Switch to light mode";
+}
+applyTheme();
+themeToggle.addEventListener("click",()=>{
+ const next = document.body.classList.contains("light-mode") ? "dark" : "light";
+ localStorage.setItem("fhmm-theme",next);
+ applyTheme();
+});
 
 // AUTH TABS
 
@@ -754,11 +846,11 @@ try{
   authBox.classList.toggle("hidden",!!user);
   appBox.classList.toggle("hidden",!user);
   logoutButton.classList.toggle("hidden",!user);
-
-  document.querySelector("#userEmail").textContent =
-   user?.email || "";
+  profileArea.classList.toggle("hidden",!user);
 
   if(user){
+   document.querySelector("#userEmail").textContent = user.email || "";
+   await loadProfile();
 
    try{
     await refresh();
@@ -899,6 +991,105 @@ logoutButton.addEventListener("click",async()=>{
 
 });
 
+
+// USER PROFILE: name in Firestore; photo stays only on this device (IndexedDB)
+let activePhotoObjectUrl = null;
+
+function openProfilePhotoDB(){
+ return new Promise((resolve,reject)=>{
+  const request = indexedDB.open("fhmm-local-profile",1);
+  request.onupgradeneeded = ()=>{
+   const dbLocal = request.result;
+   if(!dbLocal.objectStoreNames.contains("photos")) dbLocal.createObjectStore("photos");
+  };
+  request.onsuccess = ()=>resolve(request.result);
+  request.onerror = ()=>reject(request.error);
+ });
+}
+
+async function saveLocalProfilePhoto(uid,blob){
+ const localDB = await openProfilePhotoDB();
+ return new Promise((resolve,reject)=>{
+  const tx = localDB.transaction("photos","readwrite");
+  tx.objectStore("photos").put(blob,uid);
+  tx.oncomplete = ()=>{ localDB.close(); resolve(); };
+  tx.onerror = ()=>{ localDB.close(); reject(tx.error); };
+ });
+}
+
+async function getLocalProfilePhoto(uid){
+ const localDB = await openProfilePhotoDB();
+ return new Promise((resolve,reject)=>{
+  const tx = localDB.transaction("photos","readonly");
+  const request = tx.objectStore("photos").get(uid);
+  request.onsuccess = ()=>{ const value=request.result || null; localDB.close(); resolve(value); };
+  request.onerror = ()=>{ localDB.close(); reject(request.error); };
+ });
+}
+
+function renderProfile(user,photoBlob=null){
+ const name = user.displayName || (user.email ? user.email.split("@")[0] : "User");
+ profileNameElement.textContent = name;
+ avatarFallback.textContent = (name.trim()[0] || "U").toUpperCase();
+ if(activePhotoObjectUrl){ URL.revokeObjectURL(activePhotoObjectUrl); activePhotoObjectUrl=null; }
+ if(photoBlob){
+  activePhotoObjectUrl = URL.createObjectURL(photoBlob);
+  profileImage.src = activePhotoObjectUrl;
+  profileImage.classList.remove("hidden");
+  avatarFallback.classList.add("hidden");
+ }else{
+  profileImage.removeAttribute("src");
+  profileImage.classList.add("hidden");
+  avatarFallback.classList.remove("hidden");
+ }
+}
+
+async function loadProfile(){
+ if(!currentUser) return;
+ let photoBlob = null;
+ try{
+  const profileSnap = await getDoc(doc(db,"users",currentUser.uid,"settings","profile"));
+  const data = profileSnap.exists() ? profileSnap.data() : {};
+  if(!currentUser.displayName && data.displayName){
+   await updateProfile(currentUser,{displayName:data.displayName});
+  }
+  photoBlob = await getLocalProfilePhoto(currentUser.uid);
+ }catch(err){ console.warn("Could not load local profile details:",err); }
+ renderProfile(currentUser,photoBlob);
+}
+
+editProfileButton.addEventListener("click",async()=>{
+ if(!currentUser) return;
+ const proposed = prompt("Enter the name you want to show on your profile:",currentUser.displayName || currentUser.email.split("@")[0]);
+ if(proposed === null) return;
+ const name = proposed.trim();
+ if(!name){ alert("Name cannot be empty."); return; }
+ try{
+  await updateProfile(currentUser,{displayName:name});
+  await setDoc(doc(db,"users",currentUser.uid,"settings","profile"),{displayName:name,updatedAt:Date.now()},{merge:true});
+  const photoBlob = await getLocalProfilePhoto(currentUser.uid);
+  renderProfile(currentUser,photoBlob);
+ }catch(err){ alert("Could not update profile name: " + err.message); }
+});
+
+avatarButton.addEventListener("click",()=>profilePhotoInput.click());
+profilePhotoInput.addEventListener("change",async()=>{
+ const file = profilePhotoInput.files?.[0];
+ if(!file || !currentUser) return;
+ if(!file.type.startsWith("image/")){ alert("Please choose an image file."); profilePhotoInput.value=""; return; }
+ if(file.size > 5*1024*1024){ alert("Please choose an image smaller than 5 MB."); profilePhotoInput.value=""; return; }
+ avatarButton.disabled = true;
+ try{
+  await saveLocalProfilePhoto(currentUser.uid,file);
+  renderProfile(currentUser,file);
+  alert("Profile picture saved on this device only. It will not appear on other devices or browsers.");
+ }catch(err){
+  alert("Could not save the picture on this device. Check browser storage permissions: " + err.message);
+ }finally{
+  avatarButton.disabled = false;
+  profilePhotoInput.value = "";
+ }
+});
 
 // USER COLLECTION
 
@@ -1213,10 +1404,9 @@ async function loadBudget(){
 
  const snap = await getDoc(ref);
 
- budgetAmount.value = snap.exists()
-  ? snap.data().limit
-  : "";
-
+ currentBudgetLimit = snap.exists() ? Number(snap.data().limit) : 0;
+ budgetAmount.value = snap.exists() ? snap.data().limit : "";
+ cancelBudgetButton.disabled = !snap.exists();
  updateBudgetStatus();
 
 }
@@ -1227,20 +1417,32 @@ async function loadBudget(){
 function updateBudgetStatus(){
 
  const m = budgetMonth.value || month;
-
- const limit = Number(budgetAmount.value);
-
+ const limit = currentBudgetLimit || Number(budgetAmount.value);
  const spent = allTransactions
-  .filter(t=>
-   t.type==="expense" &&
-   t.date.startsWith(m)
-  )
-  .reduce((s,t)=>s+Number(t.amount),0);
+  .filter(t=>t.type==="expense" && t.date.startsWith(m))
+  .reduce((sum,t)=>sum+Number(t.amount),0);
 
- budgetStatus.textContent = limit > 0
+ const hasBudget = limit > 0;
+ const exceeded = hasBudget && spent > limit;
+ const usedPercent = hasBudget ? spent / limit * 100 : 0;
+ const remainingPercent = hasBudget ? Math.max(0,100-usedPercent) : 0;
+
+ budgetStatus.textContent = hasBudget
   ? `Spent ${money(spent)} of ${money(limit)} · ${money(Math.max(0,limit-spent))} remaining`
   : "Set a budget to track your spending.";
 
+ budgetProgressFill.style.width = `${Math.min(100,usedPercent)}%`;
+ budgetProgressText.textContent = hasBudget
+  ? `${money(Math.max(0,limit-spent))} remaining`
+  : "Set monthly budget to track your limit";
+ budgetPercent.textContent = hasBudget ? `${Math.round(remainingPercent)}% left` : "—";
+
+ const currentMonthSelected = m === month;
+ document.body.classList.toggle("budget-exceeded",Boolean(exceeded && currentMonthSelected));
+ budgetWarning.style.display = exceeded && currentMonthSelected ? "block" : "none";
+ if(exceeded && currentMonthSelected){
+  budgetWarning.textContent = `⚠️ Monthly budget exceeded! You spent ${money(spent)} against your ${money(limit)} limit.`;
+ }
 }
 
 
@@ -1268,6 +1470,8 @@ saveBudgetButton.addEventListener("click",async()=>{
    }
   );
 
+  currentBudgetLimit = limit;
+  cancelBudgetButton.disabled = false;
   updateBudgetStatus();
 
   budgetStatus.textContent += " · Budget saved.";
@@ -1280,7 +1484,25 @@ saveBudgetButton.addEventListener("click",async()=>{
 
 });
 
+cancelBudgetButton.addEventListener("click",async()=>{
+ if(!currentUser || !currentBudgetLimit) return;
+ const m = budgetMonth.value || month;
+ if(!confirm(`Cancel the monthly budget for ${m}?`)) return;
+ try{
+  await deleteDoc(doc(db,"users",currentUser.uid,"budgets",m));
+  currentBudgetLimit = 0;
+  budgetAmount.value = "";
+  cancelBudgetButton.disabled = true;
+  updateBudgetStatus();
+ }catch(err){ budgetStatus.textContent = "Could not cancel budget: " + err.message; }
+});
+
 budgetMonth.addEventListener("change",loadBudget);
+
+// The detailed report page will be implemented separately in statement.html.
+statementDownloadButton.addEventListener("click",()=>{
+ window.open("statement.html","_blank","noopener");
+});
 
 </script>
 
