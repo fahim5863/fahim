@@ -128,11 +128,40 @@ button:disabled{opacity:.55;cursor:not-allowed}
 }
 
 .preview-frame{
+ display:block;
  width:100%;
- height:750px;
+ height:850px;
  border:1px solid var(--line);
  border-radius:12px;
  background:white;
+}
+
+/* Mobile PDF Preview */
+@media(max-width:600px){
+
+ #previewSection{
+  padding:12px;
+  overflow:hidden;
+ }
+
+ .preview-frame{
+  width:100%;
+  height:65vh;
+  min-height:450px;
+  border-radius:8px;
+  border:1px solid var(--line);
+ }
+
+ .preview-heading{
+  align-items:flex-start;
+ }
+
+ .download{
+  width:100%;
+  font-size:17px;
+  padding:19px 10px;
+ }
+
 }
 
 .preview-note{
@@ -169,7 +198,7 @@ footer{
 <header>
  <h1>📄 FH MONEY MANAGER</h1>
  <div class="muted" style="font-size:12px;margin-top:4px">
-  Official Financial Statement Portal
+  Offical Financial Statement Portal
  </div>
 </header>
 
@@ -573,7 +602,7 @@ async function createStatement(user,period){
  pdf.setFont("helvetica","normal");
  pdf.setFontSize(11);
  pdf.setTextColor(210,225,247);
- pdf.text("OFFICIAL FINANCIAL STATEMENT",left,31);
+ pdf.text("FINANCIAL STATEMENT",left,31);
 
  pdf.setFontSize(9);
  pdf.text("PERSONAL ACCOUNT REPORT",left,39);
