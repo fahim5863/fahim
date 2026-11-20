@@ -4,274 +4,1094 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FH MONEY MANAGER — Statement</title>
+
 <style>
-:root{--bg:#0b1220;--panel:#121d30;--line:#26344c;--text:#eef4ff;--muted:#9aabc4;--blue:#2766ce;--green:#38d39f;--red:#ff7185}
+:root{
+ --bg:#091321;
+ --panel:#121f33;
+ --line:#293b55;
+ --text:#eef4ff;
+ --muted:#9aabc4;
+ --blue:#2766ce;
+ --green:#27c997;
+ --red:#ff7185;
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,Arial,sans-serif}
-header{padding:20px max(16px,calc((100% - 900px)/2));border-bottom:1px solid var(--line)}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font:15px system-ui,Arial,sans-serif;
+}
+
+header{
+ background:#101e33;
+ border-bottom:1px solid var(--line);
+ padding:20px max(16px,calc((100% - 950px)/2));
+}
+
 h1{font-size:22px;margin:0}
-main{max-width:900px;margin:28px auto;padding:0 16px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+h2{font-size:19px;margin:0 0 16px}
+h3{font-size:16px;margin:0 0 12px}
+
+main{
+ max-width:950px;
+ margin:28px auto;
+ padding:0 16px;
+}
+
+.card{
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:22px;
+ margin-bottom:18px;
+}
+
 .muted{color:var(--muted)}
-.profile{line-height:1.7;overflow-wrap:anywhere}
-label{display:block;margin:12px 0 6px;color:var(--muted)}
-input,select,button{font:inherit;border-radius:10px;padding:12px;border:1px solid var(--line);background:#0d1728;color:var(--text);width:100%;min-width:0}
-button{border:0;background:var(--blue);font-weight:700;cursor:pointer}
+
+.profile{
+ line-height:1.8;
+ overflow-wrap:anywhere;
+}
+
+label{
+ display:block;
+ margin:13px 0 7px;
+ color:var(--muted);
+}
+
+input,select,button{
+ font:inherit;
+ border-radius:10px;
+ padding:13px;
+ border:1px solid var(--line);
+ background:#0b1729;
+ color:var(--text);
+ width:100%;
+ min-width:0;
+}
+
+button{
+ border:0;
+ background:var(--blue);
+ font-weight:700;
+ cursor:pointer;
+ transition:.2s;
+}
+
+button:hover{filter:brightness(1.12)}
 button:disabled{opacity:.55;cursor:not-allowed}
-.big{font-size:18px;padding:16px}
-.secondary{background:#26344c}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.row>*{flex:1}
-#message{min-height:24px;color:#ffd78a;line-height:1.5}
+
+.big{
+ font-size:18px;
+ padding:17px;
+}
+
+.secondary{background:#263b58}
+
+.download{
+ background:linear-gradient(135deg,#147dca,#2458ce);
+ font-size:20px;
+ padding:20px;
+ box-shadow:0 5px 20px #0003;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:13px;
+}
+
+#message{
+ min-height:24px;
+ color:#ffd78a;
+ line-height:1.6;
+ overflow-wrap:anywhere;
+}
+
 .hidden{display:none!important}
-@media(max-width:600px){.card{padding:15px}.grid{grid-template-columns:1fr}header{padding:16px}}
+
+#previewSection{
+ margin-top:22px;
+}
+
+.preview-heading{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-bottom:15px;
+}
+
+.preview-frame{
+ width:100%;
+ height:750px;
+ border:1px solid var(--line);
+ border-radius:12px;
+ background:white;
+}
+
+.preview-note{
+ font-size:13px;
+ color:var(--muted);
+ line-height:1.6;
+ margin:12px 0 18px;
+}
+
+.download-area{
+ padding-top:18px;
+ border-top:1px solid var(--line);
+}
+
+footer{
+ text-align:center;
+ color:var(--muted);
+ font-size:12px;
+ padding:15px;
+}
+
+@media(max-width:600px){
+ .card{padding:16px}
+ .grid{grid-template-columns:1fr}
+ header{padding:16px}
+ .preview-frame{height:550px}
+ h1{font-size:19px}
+}
 </style>
 </head>
+
 <body>
-<header><h1>📄 FH MONEY MANAGER — Statement</h1></header>
+
+<header>
+ <h1>📄 FH MONEY MANAGER</h1>
+ <div class="muted" style="font-size:12px;margin-top:4px">
+  Official Financial Statement Portal
+ </div>
+</header>
+
 <main>
-  <section class="card">
-    <h2>Account Information</h2>
-    <div class="profile"><strong id="userName">Loading account...</strong><br><span class="muted" id="userEmail"></span></div>
-  </section>
 
-  <section class="card">
-    <h2>Choose Statement Period</h2>
-    <label for="periodType">Statement type</label>
-    <select id="periodType">
-      <option value="monthly">Monthly Statement</option>
-      <option value="yearly">Yearly Statement</option>
-    </select>
-    <div id="monthWrap">
-      <label for="monthPicker">Select month</label>
-      <input id="monthPicker" type="month">
-    </div>
-    <div id="yearWrap" class="hidden">
-      <label for="yearPicker">Select year</label>
-      <input id="yearPicker" type="number" min="2000" max="2100" step="1">
-    </div>
-  </section>
+<section class="card">
+ <h2>Account Information</h2>
+ <div class="profile">
+  <strong id="userName">Loading account...</strong><br>
+  <span class="muted" id="userEmail"></span>
+ </div>
+</section>
 
-  <section class="card">
-    <h2>Confirm Your Password</h2>
-    <p class="muted">For security, enter your account password before downloading. Your password is only used to verify your identity and is not saved.</p>
-    <label for="accountPassword">Account password</label>
-    <input id="accountPassword" type="password" autocomplete="current-password" placeholder="Enter your password">
-    <p id="message" role="status"></p>
-    <button id="downloadBtn" class="big">🔒 Verify & Download Statement</button>
-  </section>
+<section class="card">
+ <h2>Statement Period</h2>
 
-  <button id="homeBtn" class="big secondary">← Back to Main Money Manager</button>
+ <label for="periodType">Statement Type</label>
+ <select id="periodType">
+  <option value="monthly">Monthly Statement</option>
+  <option value="yearly">Yearly Statement</option>
+ </select>
+
+ <div id="monthWrap">
+  <label for="monthPicker">Select Month</label>
+  <input id="monthPicker" type="month">
+ </div>
+
+ <div id="yearWrap" class="hidden">
+  <label for="yearPicker">Select Year</label>
+  <input id="yearPicker" type="number"
+   min="2000" max="2100" step="1">
+ </div>
+</section>
+
+<section class="card">
+ <h2>Security Verification</h2>
+
+ <p class="muted" style="line-height:1.7">
+  Enter your account password to verify your identity.
+  Your password is used only for verification and is not saved.
+ </p>
+
+ <label for="accountPassword">Account Password</label>
+
+ <input
+  id="accountPassword"
+  type="password"
+  autocomplete="current-password"
+  placeholder="Enter your password"
+ >
+
+ <p id="message" role="status"></p>
+
+ <button id="verifyBtn" class="big">
+  🔒 Verify & Prepare Statement
+ </button>
+</section>
+
+<!-- PDF PREVIEW -->
+
+<section id="previewSection" class="card hidden">
+
+ <div class="preview-heading">
+  <div>
+   <h2 style="margin-bottom:5px">Your Financial Statement</h2>
+   <span class="muted">PDF Preview</span>
+  </div>
+  <span style="color:var(--green);font-weight:700">
+   ✓ Verified
+  </span>
+ </div>
+
+ <iframe
+  id="pdfPreview"
+  class="preview-frame"
+  title="Financial Statement PDF Preview">
+ </iframe>
+
+ <p class="preview-note">
+  Your statement is ready. Review the PDF above.
+  When you are satisfied, use the download button below.
+ </p>
+
+ <div class="download-area">
+  <button id="downloadBtn" class="download">
+   ⬇ DOWNLOAD PDF STATEMENT
+  </button>
+ </div>
+
+</section>
+
+<button id="homeBtn" class="big secondary">
+ ← Back to Main Money Manager
+</button>
+
 </main>
 
+<footer>
+ FH MONEY MANAGER • Personal Financial Management
+</footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
 import {
-  getAuth, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential
+ getAuth,
+ onAuthStateChanged,
+ EmailAuthProvider,
+ reauthenticateWithCredential
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
 import {
-  getFirestore, collection, getDocs, query, orderBy
+ getFirestore,
+ collection,
+ getDocs,
+ query,
+ orderBy
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
+
+/* FIREBASE CONFIG */
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDsooWqRs7UFqoN7cGxT7hTc-ErORqk9GM",
-  authDomain: "fahim-money-manager.firebaseapp.com",
-  projectId: "fahim-money-manager",
-  storageBucket: "fahim-money-manager.firebasestorage.app",
-  messagingSenderId: "826291912070",
-  appId: "1:826291912070:web:5a833b9c9ebe0f973f8007",
-  measurementId: "G-JD2C5WD89R"
+ apiKey: "AIzaSyDsooWqRs7UFqoN7cGxT7hTc-ErORqk9GM",
+ authDomain: "fahim-money-manager.firebaseapp.com",
+ projectId: "fahim-money-manager",
+ storageBucket: "fahim-money-manager.firebasestorage.app",
+ messagingSenderId: "826291912070",
+ appId: "1:826291912070:web:5a833b9c9ebe0f973f8007",
+ measurementId: "G-JD2C5WD89R"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
 const $ = id => document.getElementById(id);
+
 let currentUser = null;
 let authReady = false;
+let currentPdfBlob = null;
+let currentPdfUrl = null;
+let currentFilename = null;
+
+
+/* INITIAL VALUES */
 
 const now = new Date();
-$("monthPicker").value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+
+$("monthPicker").value =
+ `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+
 $("yearPicker").value = now.getFullYear();
 
+
+/* PERIOD SELECTION */
+
 $("periodType").addEventListener("change", () => {
-  const monthly = $("periodType").value === "monthly";
-  $("monthWrap").classList.toggle("hidden", !monthly);
-  $("yearWrap").classList.toggle("hidden", monthly);
+
+ const monthly = $("periodType").value === "monthly";
+
+ $("monthWrap").classList.toggle("hidden",!monthly);
+ $("yearWrap").classList.toggle("hidden",monthly);
+
 });
 
-$("homeBtn").addEventListener("click", () => {
-  window.location.href = "money.html";
-});
 
-onAuthStateChanged(auth, user => {
-  currentUser = user;
-  authReady = true;
-  if (!user) {
-    $("message").textContent = "You are not logged in. Returning to the main page...";
-    setTimeout(() => window.location.replace("money.html"), 1800);
-    return;
+function getPeriod(){
+
+ if($("periodType").value === "monthly"){
+
+  const month = $("monthPicker").value;
+
+  if(!/^\d{4}-\d{2}$/.test(month)){
+   throw new Error("Please select a valid month.");
   }
-  $("userName").textContent = user.displayName || (user.email ? user.email.split("@")[0] : "User");
-  $("userEmail").textContent = user.email || "";
-});
 
-function money(value) {
-  return "BDT " + Number(value || 0).toLocaleString("en-BD", {minimumFractionDigits:2, maximumFractionDigits:2});
-}
-function safeDate(date) {
-  return String(date || "");
-}
-function getPeriod() {
-  if ($("periodType").value === "monthly") {
-    const month = $("monthPicker").value;
-    if (!/^\d{4}-\d{2}$/.test(month)) throw new Error("Please select a valid month.");
-    return {label:month, start:month+"-01", end:month+"-31", filename:"Monthly-Statement-"+month};
-  }
-  const year = Number($("yearPicker").value);
-  if (!Number.isInteger(year) || year < 2000 || year > 2100) throw new Error("Please enter a valid year.");
-  return {label:String(year), start:`${year}-01-01`, end:`${year}-12-31`, filename:"Yearly-Statement-"+year};
-}
-function sumByCategory(items, type) {
-  const totals = {};
-  items.filter(t => t.type === type).forEach(t => {
-    const category = String(t.category || "Uncategorized");
-    totals[category] = (totals[category] || 0) + Number(t.amount || 0);
-  });
-  return Object.entries(totals).sort((a,b) => b[1]-a[1]);
-}
-function addText(doc, text, x, y, maxWidth=175, lineHeight=6) {
-  const lines = doc.splitTextToSize(String(text), maxWidth);
-  for (const line of lines) {
-    if (y > 280) { doc.addPage(); y = 18; }
-    doc.text(line, x, y);
-    y += lineHeight;
-  }
-  return y;
-}
+  const [year,monthNumber] = month.split("-").map(Number);
 
-async function createStatement(user, period) {
-  const q = query(collection(db, "users", user.uid, "transactions"), orderBy("date", "desc"));
-  const snapshot = await getDocs(q);
-  const all = snapshot.docs.map(d => ({id:d.id, ...d.data()}));
-  const transactions = all.filter(t => safeDate(t.date) >= period.start && safeDate(t.date) <= period.end);
+  const lastDay = new Date(year,monthNumber,0).getDate();
 
-  const income = transactions.filter(t => t.type === "income").reduce((s,t)=>s+Number(t.amount||0),0);
-  const expenses = transactions.filter(t => t.type === "expense").reduce((s,t)=>s+Number(t.amount||0),0);
-  const balance = income - expenses;
-  const incomeCats = sumByCategory(transactions, "income");
-  const expenseCats = sumByCategory(transactions, "expense");
-
-  if (!window.jspdf?.jsPDF) throw new Error("PDF library could not load. Check your internet connection and try again.");
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({unit:"mm", format:"a4"});
-  const pageWidth = pdf.internal.pageSize.getWidth();
-  let y = 18;
-
-  pdf.setFont("helvetica","bold"); pdf.setFontSize(19);
-  pdf.text("FH MONEY MANAGER", 15, y); y += 9;
-  pdf.setFontSize(14); pdf.text("Financial Statement",15,y); y += 8;
-  pdf.setFont("helvetica","normal"); pdf.setFontSize(10);
-  pdf.text("Statement period: " + period.label,15,y); y += 6;
-  pdf.text("Account name: " + (user.displayName || user.email?.split("@")[0] || "User"),15,y); y += 6;
-  pdf.text("Email: " + (user.email || ""),15,y); y += 9;
-
-  pdf.setDrawColor(160); pdf.line(15,y,pageWidth-15,y); y += 8;
-  pdf.setFont("helvetica","bold"); pdf.setFontSize(12); pdf.text("SUMMARY",15,y); y += 8;
-  // Highlight combined total first, in a larger font.
-  pdf.setFont("helvetica","bold"); pdf.setFontSize(16);
-  y = addText(pdf, "TOTAL MOVEMENT: " + money(income + expenses), 15, y, 180, 8);
-  y += 3;
-  pdf.setFont("helvetica","normal"); pdf.setFontSize(11);
-  pdf.text("Total Income: " + money(income),15,y); y += 7;
-  pdf.text("Total Expenses: " + money(expenses),15,y); y += 7;
-  pdf.text("Net Balance: " + money(balance),15,y); y += 10;
-
-  const addCategorySection = (title, entries) => {
-    if (y > 255) { pdf.addPage(); y = 18; }
-    pdf.setFont("helvetica","bold"); pdf.setFontSize(12); pdf.text(title,15,y); y += 7;
-    pdf.setFont("helvetica","normal"); pdf.setFontSize(10);
-    if (!entries.length) { pdf.text("No records in this period.",15,y); y += 7; }
-    else entries.forEach(([name,amount]) => {
-      y = addText(pdf, name + " — " + money(amount), 17, y, 175, 6);
-    });
-    y += 4;
+  return {
+   label:month,
+   start:month+"-01",
+   end:month+"-"+String(lastDay).padStart(2,"0"),
+   filename:"FH-Monthly-Statement-"+month
   };
-  addCategorySection("INCOME SOURCES", incomeCats);
-  addCategorySection("EXPENSE CATEGORIES", expenseCats);
 
-  if (y > 245) { pdf.addPage(); y = 18; }
-  pdf.setFont("helvetica","bold"); pdf.setFontSize(12); pdf.text("TRANSACTION DETAILS",15,y); y += 8;
-  pdf.setFont("helvetica","bold"); pdf.setFontSize(9);
-  pdf.text("Date",15,y); pdf.text("Type",42,y); pdf.text("Category / Note",66,y); pdf.text("Amount",155,y); y += 5;
-  pdf.setDrawColor(170); pdf.line(15,y,pageWidth-15,y); y += 6;
-  pdf.setFont("helvetica","normal"); pdf.setFontSize(8.5);
+ }
 
-  if (!transactions.length) {
-    pdf.text("No transactions found for this period.",15,y);
-  } else {
-    transactions.forEach(t => {
-      if (y > 278) {
-        pdf.addPage(); y = 18;
-        pdf.setFont("helvetica","bold"); pdf.text("Date",15,y); pdf.text("Type",42,y); pdf.text("Category / Note",66,y); pdf.text("Amount",155,y); y += 7;
-        pdf.setFont("helvetica","normal");
-      }
-      const categoryNote = String(t.category || "Uncategorized") + (t.note ? " / " + String(t.note) : "");
-      pdf.text(safeDate(t.date),15,y);
-      pdf.text(String(t.type || ""),42,y);
-      pdf.text(pdf.splitTextToSize(categoryNote,78).slice(0,2),66,y);
-      pdf.text(money(t.amount),155,y);
-      y += 7;
-    });
-  }
+ const year = Number($("yearPicker").value);
 
-  const pages = pdf.getNumberOfPages();
-  for (let p=1; p<=pages; p++) {
-    pdf.setPage(p);
-    pdf.setFontSize(8); pdf.setTextColor(120);
-    pdf.text(`Generated by FH MONEY MANAGER  |  Page ${p} of ${pages}`,15,290);
-  }
-  pdf.save(period.filename + ".pdf");
+ if(!Number.isInteger(year) || year<2000 || year>2100){
+  throw new Error("Please enter a valid year.");
+ }
+
+ return {
+  label:String(year),
+  start:`${year}-01-01`,
+  end:`${year}-12-31`,
+  filename:"FH-Yearly-Statement-"+year
+ };
+
 }
 
-$("downloadBtn").addEventListener("click", async () => {
-  $("message").textContent = "";
-  if (!authReady || !currentUser) {
-    $("message").textContent = "Please log in from the main page first.";
-    return;
-  }
-  const password = $("accountPassword").value;
-  if (!password) {
-    $("message").textContent = "Please enter your account password.";
-    $("accountPassword").focus();
-    return;
-  }
-  let period;
-  try { period = getPeriod(); }
-  catch (err) { $("message").textContent = err.message; return; }
 
-  const btn = $("downloadBtn");
-  btn.disabled = true;
-  btn.textContent = "Verifying and preparing PDF...";
-  try {
-    const credential = EmailAuthProvider.credential(currentUser.email, password);
-    await reauthenticateWithCredential(currentUser, credential);
-    $("accountPassword").value = "";
-    await createStatement(currentUser, period);
-    $("message").textContent = "Statement downloaded. Returning to the main page...";
-    setTimeout(() => window.location.replace("money.html"), 2500);
-  } catch (err) {
-    const code = err?.code || "";
-    $("message").textContent =
-      code === "auth/invalid-credential" || code === "auth/wrong-password"
-        ? "Incorrect password. Please try again."
-        : (err.message || "Could not download the statement.");
-    btn.disabled = false;
-    btn.textContent = "🔒 Verify & Download Statement";
-  }
+/* AUTHENTICATION */
+
+onAuthStateChanged(auth,user=>{
+
+ currentUser=user;
+ authReady=true;
+
+ if(!user){
+
+  $("userName").textContent="Not logged in";
+
+  $("message").textContent=
+   "Please log in from the main page first.";
+
+  setTimeout(()=>{
+   window.location.replace("money.html");
+  },2000);
+
+  return;
+ }
+
+ $("userName").textContent=
+  user.displayName ||
+  (user.email ? user.email.split("@")[0] : "User");
+
+ $("userEmail").textContent=user.email || "";
+
 });
+
+
+$("homeBtn").addEventListener("click",()=>{
+
+ window.location.href="money.html";
+
+});
+
+
+/* HELPERS */
+
+function money(value){
+
+ return "BDT "+Number(value||0).toLocaleString("en-BD",{
+  minimumFractionDigits:2,
+  maximumFractionDigits:2
+ });
+
+}
+
+
+function sumByCategory(items,type){
+
+ const totals={};
+
+ items.filter(t=>t.type===type).forEach(t=>{
+
+  const category=String(t.category||"Uncategorized");
+
+  totals[category]=(totals[category]||0)+Number(t.amount||0);
+
+ });
+
+ return Object.entries(totals).sort((a,b)=>b[1]-a[1]);
+
+}
+
+
+/* PDF GENERATOR */
+
+async function createStatement(user,period){
+
+ const transactionQuery=query(
+  collection(db,"users",user.uid,"transactions"),
+  orderBy("date","desc")
+ );
+
+ const snapshot=await getDocs(transactionQuery);
+
+ const all=snapshot.docs.map(d=>({
+  id:d.id,
+  ...d.data()
+ }));
+
+ const transactions=all.filter(t=>{
+
+  const date=String(t.date||"");
+
+  return date>=period.start && date<=period.end;
+
+ });
+
+ const income=transactions
+  .filter(t=>t.type==="income")
+  .reduce((s,t)=>s+Number(t.amount||0),0);
+
+ const expenses=transactions
+  .filter(t=>t.type==="expense")
+  .reduce((s,t)=>s+Number(t.amount||0),0);
+
+ const balance=income-expenses;
+
+ const incomeCats=sumByCategory(transactions,"income");
+ const expenseCats=sumByCategory(transactions,"expense");
+
+ if(!window.jspdf?.jsPDF){
+  throw new Error("PDF library could not load. Please refresh the page.");
+ }
+
+ const {jsPDF}=window.jspdf;
+
+ const pdf=new jsPDF({
+  orientation:"portrait",
+  unit:"mm",
+  format:"a4"
+ });
+
+ const W=pdf.internal.pageSize.getWidth();
+ const H=pdf.internal.pageSize.getHeight();
+
+ const left=15;
+ const right=W-15;
+ const contentW=right-left;
+
+ let y=15;
+ let page=1;
+
+
+ /* COLORS */
+
+ const navy=[16,38,72];
+ const blue=[39,102,206];
+ const light=[240,245,252];
+ const green=[22,155,112];
+ const red=[210,73,91];
+ const grey=[105,119,139];
+ const border=[220,228,239];
+
+
+ /* BASIC HELPERS */
+
+ function setText(color){
+  pdf.setTextColor(...color);
+ }
+
+ function newPage(){
+  pdf.addPage();
+  page++;
+  y=18;
+ }
+
+ function checkSpace(height){
+  if(y+height>H-22){
+   newPage();
+  }
+ }
+
+ function sectionTitle(title){
+
+  checkSpace(13);
+
+  pdf.setFillColor(...light);
+  pdf.roundedRect(left,y-5,contentW,10,2,2,"F");
+
+  pdf.setFont("helvetica","bold");
+  pdf.setFontSize(10);
+  setText(navy);
+
+  pdf.text(title.toUpperCase(),left+4,y+1);
+
+  y+=14;
+ }
+
+ function line(){
+  pdf.setDrawColor(...border);
+  pdf.line(left,y,right,y);
+ }
+
+
+ /* HEADER */
+
+ pdf.setFillColor(...navy);
+ pdf.rect(0,0,W,53,"F");
+
+ pdf.setFillColor(...blue);
+ pdf.rect(0,51,W,2,"F");
+
+ pdf.setFont("helvetica","bold");
+ pdf.setFontSize(21);
+ pdf.setTextColor(255,255,255);
+ pdf.text("FH MONEY MANAGER",left,22);
+
+ pdf.setFont("helvetica","normal");
+ pdf.setFontSize(11);
+ pdf.setTextColor(210,225,247);
+ pdf.text("OFFICIAL FINANCIAL STATEMENT",left,31);
+
+ pdf.setFontSize(9);
+ pdf.text("PERSONAL ACCOUNT REPORT",left,39);
+
+ pdf.setFont("helvetica","bold");
+ pdf.setFontSize(10);
+ pdf.setTextColor(255,255,255);
+ pdf.text("STATEMENT",right,22,{align:"right"});
+
+ pdf.setFont("helvetica","normal");
+ pdf.setFontSize(9);
+ pdf.text(period.label,right,30,{align:"right"});
+
+ y=64;
+
+
+ /* ACCOUNT INFORMATION */
+
+ sectionTitle("ACCOUNT INFORMATION");
+
+ const accountName=
+  user.displayName ||
+  user.email?.split("@")[0] ||
+  "User";
+
+ pdf.setFont("helvetica","bold");
+ pdf.setFontSize(10);
+ setText(navy);
+ pdf.text("Account Holder",left,y);
+
+ pdf.setFont("helvetica","normal");
+ setText(grey);
+ pdf.text(String(accountName),left+40,y);
+
+ y+=7;
+
+ pdf.setFont("helvetica","bold");
+ setText(navy);
+ pdf.text("Email Address",left,y);
+
+ pdf.setFont("helvetica","normal");
+ setText(grey);
+
+ const emailLines=pdf.splitTextToSize(
+  String(user.email||""),
+  135
+ );
+
+ pdf.text(emailLines,left+40,y);
+
+ y+=Math.max(7,emailLines.length*5);
+
+ pdf.setFont("helvetica","bold");
+ setText(navy);
+ pdf.text("Statement Period",left,y);
+
+ pdf.setFont("helvetica","normal");
+ setText(grey);
+ pdf.text(period.label,left+40,y);
+
+ y+=12;
+
+
+ /* SUMMARY CARDS */
+
+ sectionTitle("FINANCIAL OVERVIEW");
+
+ const gap=4;
+ const cardW=(contentW-gap*2)/3;
+ const cardH=27;
+
+ const summaryCards=[
+  {title:"TOTAL INCOME",value:income,color:green},
+  {title:"TOTAL EXPENSES",value:expenses,color:red},
+  {title:"NET BALANCE",value:balance,color:blue}
+ ];
+
+ summaryCards.forEach((item,index)=>{
+
+  const x=left+index*(cardW+gap);
+
+  pdf.setFillColor(246,249,253);
+  pdf.roundedRect(x,y,cardW,cardH,3,3,"F");
+
+  pdf.setDrawColor(...border);
+  pdf.roundedRect(x,y,cardW,cardH,3,3,"S");
+
+  pdf.setFont("helvetica","bold");
+  pdf.setFontSize(8);
+  setText(grey);
+  pdf.text(item.title,x+4,y+8);
+
+  pdf.setFontSize(10);
+  setText(item.color);
+
+  pdf.text(
+   money(item.value),
+   x+4,
+   y+19,
+   {maxWidth:cardW-8}
+  );
+
+ });
+
+ y+=cardH+9;
+
+
+ /* TOTAL MOVEMENT */
+
+ pdf.setFillColor(...navy);
+ pdf.roundedRect(left,y,contentW,15,2,2,"F");
+
+ pdf.setFont("helvetica","bold");
+ pdf.setFontSize(9);
+ pdf.setTextColor(220,230,245);
+ pdf.text("TOTAL MONEY MOVEMENT",left+5,y+6);
+
+ pdf.setFontSize(12);
+ pdf.setTextColor(255,255,255);
+ pdf.text(money(income+expenses),right-5,y+10,{align:"right"});
+
+ y+=23;
+
+
+ /* CATEGORY REPORT */
+
+ function addCategorySection(title,entries,color){
+
+  sectionTitle(title);
+
+  if(!entries.length){
+
+   pdf.setFont("helvetica","italic");
+   pdf.setFontSize(9);
+   setText(grey);
+   pdf.text("No records in this period.",left+2,y);
+
+   y+=9;
+   return;
+
+  }
+
+  pdf.setFont("helvetica","bold");
+  pdf.setFontSize(9);
+  setText(grey);
+
+  pdf.text("CATEGORY",left+2,y);
+  pdf.text("TOTAL AMOUNT",right-2,y,{align:"right"});
+
+  y+=6;
+  line();
+  y+=6;
+
+  entries.forEach(([name,amount])=>{
+
+   checkSpace(10);
+
+   pdf.setFont("helvetica","normal");
+   pdf.setFontSize(9);
+   setText(navy);
+
+   const categoryLines=pdf.splitTextToSize(
+    String(name),
+    100
+   );
+
+   pdf.text(categoryLines,left+2,y);
+
+   pdf.setFont("helvetica","bold");
+   setText(color);
+
+   pdf.text(
+    money(amount),
+    right-2,
+    y,
+    {align:"right"}
+   );
+
+   y+=Math.max(7,categoryLines.length*5);
+
+   pdf.setDrawColor(...border);
+   pdf.line(left+2,y-2,right-2,y-2);
+
+  });
+
+  y+=5;
+
+ }
+
+
+ addCategorySection(
+  "INCOME SOURCES",
+  incomeCats,
+  green
+ );
+
+ addCategorySection(
+  "EXPENSE CATEGORIES",
+  expenseCats,
+  red
+ );
+
+
+ /* TRANSACTION DETAILS */
+
+ sectionTitle("TRANSACTION HISTORY");
+
+ const drawTableHeader=()=>{
+
+  pdf.setFillColor(...navy);
+  pdf.rect(left,y,contentW,10,"F");
+
+  pdf.setFont("helvetica","bold");
+  pdf.setFontSize(8);
+  pdf.setTextColor(255,255,255);
+
+  pdf.text("DATE",left+3,y+6.5);
+  pdf.text("TYPE",left+31,y+6.5);
+  pdf.text("CATEGORY / NOTE",left+53,y+6.5);
+  pdf.text("AMOUNT",right-3,y+6.5,{align:"right"});
+
+  y+=13;
+
+ };
+
+ drawTableHeader();
+
+ if(!transactions.length){
+
+  pdf.setFont("helvetica","italic");
+  pdf.setFontSize(9);
+  setText(grey);
+
+  pdf.text(
+   "No transactions found for this statement period.",
+   left+3,
+   y
+  );
+
+  y+=10;
+
+ }else{
+
+  transactions.forEach((t,index)=>{
+
+   const date=String(t.date||"");
+   const type=String(t.type||"");
+   const category=String(t.category||"Uncategorized");
+
+   const note=String(t.note||"");
+
+   const detail=category+(note?" / "+note:"");
+
+   const detailLines=pdf.splitTextToSize(detail,79);
+
+   const rowHeight=Math.max(9,detailLines.length*4.5+3);
+
+   if(y+rowHeight>H-22){
+
+    newPage();
+    sectionTitle("TRANSACTION HISTORY — CONTINUED");
+    drawTableHeader();
+
+   }
+
+   if(index%2===0){
+
+    pdf.setFillColor(246,249,253);
+    pdf.rect(left,y-4,contentW,rowHeight,"F");
+
+   }
+
+   pdf.setFont("helvetica","normal");
+   pdf.setFontSize(8);
+   setText(navy);
+
+   pdf.text(date,left+3,y+1);
+
+   if(type==="income"){
+    pdf.setTextColor(...green);
+   }else if(type==="expense"){
+    pdf.setTextColor(...red);
+   }
+
+   pdf.text(type.toUpperCase(),left+31,y+1);
+
+   pdf.setTextColor(...navy);
+   pdf.text(detailLines,left+53,y+1);
+
+   pdf.setFont("helvetica","bold");
+   pdf.text(
+    money(t.amount),
+    right-3,
+    y+1,
+    {align:"right"}
+   );
+
+   y+=rowHeight;
+
+  });
+
+ }
+
+
+ /* FINAL SUMMARY */
+
+ checkSpace(38);
+
+ y+=5;
+ line();
+ y+=10;
+
+ pdf.setFont("helvetica","bold");
+ pdf.setFontSize(10);
+ setText(navy);
+
+ pdf.text("FINAL NET BALANCE",left+2,y);
+
+ pdf.setFontSize(13);
+ pdf.setTextColor(...(balance>=0?green:red));
+
+ pdf.text(
+  money(balance),
+  right-2,
+  y,
+  {align:"right"}
+ );
+
+
+ /* FOOTERS */
+
+ const totalPages=pdf.getNumberOfPages();
+
+ for(let p=1;p<=totalPages;p++){
+
+  pdf.setPage(p);
+
+  pdf.setDrawColor(...border);
+  pdf.line(left,H-17,right,H-17);
+
+  pdf.setFont("helvetica","normal");
+  pdf.setFontSize(8);
+  setText(grey);
+
+  pdf.text(
+   "FH MONEY MANAGER | CONFIDENTIAL ACCOUNT STATEMENT",
+   left,
+   H-11
+  );
+
+  pdf.text(
+   `Page ${p} of ${totalPages}`,
+   right,
+   H-11,
+   {align:"right"}
+  );
+
+ }
+
+ /* RETURN PDF AS BLOB */
+
+ const blob=pdf.output("blob");
+
+ return {
+  blob,
+  filename:period.filename+".pdf"
+ };
+
+}
+
+
+/* VERIFY PASSWORD & PREPARE PDF */
+
+$("verifyBtn").addEventListener("click",async()=>{
+
+ $("message").textContent="";
+
+ if(!authReady || !currentUser){
+
+  $("message").textContent=
+   "Please log in from the main page first.";
+
+  return;
+
+ }
+
+ if(!currentUser.email){
+
+  $("message").textContent=
+   "This account does not have an email/password login.";
+
+  return;
+
+ }
+
+ const password=$("accountPassword").value;
+
+ if(!password){
+
+  $("message").textContent=
+   "Please enter your account password.";
+
+  $("accountPassword").focus();
+
+  return;
+
+ }
+
+ let period;
+
+ try{
+
+  period=getPeriod();
+
+ }catch(err){
+
+  $("message").textContent=err.message;
+  return;
+
+ }
+
+ const btn=$("verifyBtn");
+
+ btn.disabled=true;
+ btn.textContent="Verifying & Preparing PDF...";
+
+ $("previewSection").classList.add("hidden");
+
+ try{
+
+  const credential=EmailAuthProvider.credential(
+   currentUser.email,
+   password
+  );
+
+  await reauthenticateWithCredential(
+   currentUser,
+   credential
+  );
+
+  $("accountPassword").value="";
+
+  const result=await createStatement(
+   currentUser,
+   period
+  );
+
+  if(currentPdfUrl){
+   URL.revokeObjectURL(currentPdfUrl);
+  }
+
+  currentPdfBlob=result.blob;
+  currentFilename=result.filename;
+
+  currentPdfUrl=URL.createObjectURL(currentPdfBlob);
+
+  $("pdfPreview").src=currentPdfUrl;
+
+  $("previewSection").classList.remove("hidden");
+
+  $("message").textContent=
+   "✓ Verification successful! Your PDF statement is ready.";
+
+  $("previewSection").scrollIntoView({
+   behavior:"smooth",
+   block:"start"
+  });
+
+ }catch(err){
+
+  console.error(err);
+
+  const code=err?.code||"";
+
+  $("message").textContent=
+   code==="auth/invalid-credential" ||
+   code==="auth/wrong-password" ||
+   code==="auth/invalid-login-credentials"
+    ? "Incorrect password. Please try again."
+    : (err.message||"Could not prepare your statement.");
+
+ }finally{
+
+  btn.disabled=false;
+  btn.textContent="🔒 Verify & Prepare Statement";
+
+ }
+
+});
+
+
+/* DOWNLOAD PDF */
+
+$("downloadBtn").addEventListener("click",()=>{
+
+ if(!currentPdfBlob || !currentPdfUrl){
+
+  $("message").textContent=
+   "Please verify your password and prepare the PDF first.";
+
+  return;
+
+ }
+
+ const link=document.createElement("a");
+
+ link.href=currentPdfUrl;
+ link.download=currentFilename;
+
+ document.body.appendChild(link);
+ link.click();
+ link.remove();
+
+ $("message").textContent=
+  "✓ Your PDF download has started.";
+
+});
+
 </script>
 </body>
 </html>
