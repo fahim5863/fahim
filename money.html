@@ -1499,9 +1499,10 @@ cancelBudgetButton.addEventListener("click",async()=>{
 
 budgetMonth.addEventListener("change",loadBudget);
 
-// The detailed report page will be implemented separately in statement.html.
+
+ // Open Statement in the same tab
 statementDownloadButton.addEventListener("click",()=>{
- window.open("statement.html","_blank","noopener");
+ window.location.href = "statement.html";
 });
 
 </script>
