@@ -287,7 +287,9 @@ th{
 .header-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
 .profile-area{display:flex;align-items:center;gap:10px;min-width:0}
 .profile-copy{display:flex;flex-direction:column;min-width:0;gap:2px}
-.profile-name{font-size:16px;font-weight:750;line-height:1.2;overflow-wrap:anywhere}
+.profile-name{font-size:16px;font-weight:750;line-height:1.2;overflow-wrap:anywhere;background:none;border:0;padding:0;color:var(--text);text-align:left;cursor:pointer;font-family:inherit}
+.profile-name:hover{text-decoration:underline;text-underline-offset:3px}
+.profile-name:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:3px}
 .profile-email{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
 .avatar-button{width:44px;height:44px;padding:0;border-radius:50%;overflow:hidden;background:#26344c;border:2px solid var(--line);display:grid;place-items:center;flex:none}
 .avatar-button img{width:100%;height:100%;object-fit:cover}
@@ -390,9 +392,8 @@ body.budget-exceeded,body.budget-exceeded.light-mode{--bg:#260d13;--panel:#3b111
     <img id="profileImage" class="hidden" alt="Profile picture">
    </button>
    <div class="profile-copy">
-    <span id="profileName" class="profile-name">User</span>
+    <button type="button" id="profileName" class="profile-name" title="Click to edit your name" aria-label="Edit profile name">User</button>
     <span id="userEmail" class="profile-email"></span>
-    <button type="button" id="editProfile" class="secondary profile-edit">Edit profile</button>
    </div>
    <input id="profilePhotoInput" type="file" accept="image/*" class="hidden">
   </div>
@@ -448,15 +449,15 @@ body.budget-exceeded,body.budget-exceeded.light-mode{--bg:#260d13;--panel:#3b111
   <div class="card stat">
    <small>Total expenses</small>
    <strong id="expense" class="red">৳0.00</strong>
+   <div class="budget-progress-wrap">
+    <div class="budget-progress-track"><div id="budgetProgressFill" class="budget-progress-fill"></div></div>
+    <div class="budget-progress-meta"><span id="budgetProgressText">Set monthly budget to track your limit</span><span id="budgetPercent">—</span></div>
+   </div>
   </div>
 
   <div class="card stat">
    <small>Current balance</small>
    <strong id="balance">৳0.00</strong>
-   <div class="budget-progress-wrap">
-    <div class="budget-progress-track"><div id="budgetProgressFill" class="budget-progress-fill"></div></div>
-    <div class="budget-progress-meta"><span id="budgetProgressText">Set monthly budget to track your limit</span><span id="budgetPercent">—</span></div>
-   </div>
   </div>
 
  </div>
@@ -695,7 +696,6 @@ const profileNameElement = document.querySelector("#profileName");
 const profileImage = document.querySelector("#profileImage");
 const avatarFallback = document.querySelector("#avatarFallback");
 const avatarButton = document.querySelector("#avatarButton");
-const editProfileButton = document.querySelector("#editProfile");
 const profilePhotoInput = document.querySelector("#profilePhotoInput");
 const themeToggle = document.querySelector("#themeToggle");
 const budgetProgressFill = document.querySelector("#budgetProgressFill");
@@ -1058,7 +1058,7 @@ async function loadProfile(){
  renderProfile(currentUser,photoBlob);
 }
 
-editProfileButton.addEventListener("click",async()=>{
+profileNameElement.addEventListener("click",async()=>{
  if(!currentUser) return;
  const proposed = prompt("Enter the name you want to show on your profile:",currentUser.displayName || currentUser.email.split("@")[0]);
  if(proposed === null) return;
