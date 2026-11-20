@@ -182,7 +182,7 @@ async function createStatement(user, period) {
   pdf.setFont("helvetica","bold"); pdf.setFontSize(12); pdf.text("SUMMARY",15,y); y += 8;
   // Highlight combined total first, in a larger font.
   pdf.setFont("helvetica","bold"); pdf.setFontSize(16);
-  y = addText(pdf, "TOTAL INCOME + TOTAL EXPENSES: " + money(income + expenses), 15, y, 180, 8);
+  y = addText(pdf, "TOTAL MOVEMENT: " + money(income + expenses), 15, y, 180, 8);
   y += 3;
   pdf.setFont("helvetica","normal"); pdf.setFontSize(11);
   pdf.text("Total Income: " + money(income),15,y); y += 7;
